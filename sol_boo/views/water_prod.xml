@@ -1,0 +1,172 @@
+<odoo>
+    <data>
+
+        <!-- Tree group-->
+        <record id="water_prod_view_tree" model="ir.ui.view">
+            <field name="name">water.prod.daily.view.tree</field>
+            <field name="model">water.prod.daily</field>
+            <field name="arch" type="xml">
+                <tree string="Water Production Daily">
+                    <field name="date"/>
+                    <field name="warehouse_id"/>
+                    <field name="laguna" />
+                    <field name="target_prod" />
+                    <field name="adjustment_prod" />
+                    <field name="adendum"/>
+                    <field name="now_prod"/>
+                    <field name="over_target"/>
+                    <field name="freq_hpp"/>
+                    <field name="flow_prod"/>
+                    <field name="catatan"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="water_prod2_view_tree" model="ir.ui.view">
+            <field name="name">operation.boo.view.tree</field>
+            <field name="model">operation.boo</field>
+            <field name="arch" type="xml">
+                <tree string="Water Production Daily2">
+                    <field name="name"/>
+                    <field name="warehouse_id"/>
+                    <field name="date" />
+                    <field name="aktual_ro" />
+                    <field name="lwbp" />
+                    <field name="lwbp_real"/>
+                    <field name="wbp"/>
+                    <field name="wbp_real"/>
+                    <field name="sec"/>
+                    <field name="minimum_prod"/>
+                    <field name="remarks"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- === FORM AREA === -->
+        <record id="water_prod_view_form" model="ir.ui.view">
+            <field name="name">water.prod.daily.view.form</field>
+            <field name="model">water.prod.daily</field>
+            <field name="arch" type="xml">
+                <form string="Water Production Daily">
+                    <header>
+                        <!-- <button name="submit_jor" type="object" string="Request" states="draft" class="oe_highlight"/> -->
+                        <!-- <button name="review_jor" type="object" string="Review" states="req" class="oe_highlight" /> -->
+                        <!-- <button name="approve_jor" type="object" string="Approve" states="review" class="oe_highlight" /> -->
+                        <!-- <button name="cancel_jor" type="object" string="Cancel" states="review,approve" class="oe_highlight"/> -->
+                        <!-- <button name="set_to_draft" type="object" string="Set To Draft" states="approve"/> -->
+                        <!-- <field name="state" widget="statusbar" statusbar_visible="draft,req,review,approve" /> -->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="laguna" />
+                                <field name="adjustment_prod" />
+                                <field name="now_prod" />
+                                <field name="freq_hpp" />
+                            </group>
+                            <group>
+                                <field name="warehouse_id" required="1"/>
+                                <field name="target_prod" />
+                                <field name="adendum" />
+                                <field name="over_target" />
+                                <field name="flow_prod" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="catatan"/>
+                        </group>
+                        <notebook>
+                            <page name="input" string="Input">
+                                <field name="operation_line" nolabel="1" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="warehouse_id" invisible="1"/>
+                                        <field name="date" />
+                                        <field name="aktual_ro" />
+                                        <field name="lwbp"/>
+                                        <field name="lwbp_real"/>
+                                        <field name="wbp"/>
+                                        <field name="wbp_real"/>
+                                        <field name="sec"/>
+                                        <field name="minimum_prod"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!-- <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div> -->
+                </form>
+            </field>
+        </record>
+
+        <record id="water_prod2_view_form" model="ir.ui.view">
+            <field name="name">operation.boo.view.form</field>
+            <field name="model">operation.boo</field>
+            <field name="arch" type="xml">
+                <form string="Water Production Daily2">
+                    <header>
+                        <!-- <button name="submit_jor" type="object" string="Request" states="draft" class="oe_highlight"/> -->
+                        <!-- <button name="review_jor" type="object" string="Review" states="req" class="oe_highlight" /> -->
+                        <!-- <button name="approve_jor" type="object" string="Approve" states="review" class="oe_highlight" /> -->
+                        <!-- <button name="cancel_jor" type="object" string="Cancel" states="review,approve" class="oe_highlight"/> -->
+                        <!-- <button name="set_to_draft" type="object" string="Set To Draft" states="approve"/> -->
+                        <!-- <field name="state" widget="statusbar" statusbar_visible="draft,req,review,approve" /> -->
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="warehouse_id"/>
+                            <field name="date" />
+                            <field name="aktual_ro" />
+                            <field name="lwbp" />
+                            <field name="lwbp_real"/>
+                            <field name="wbp"/>
+                            <field name="wbp_real"/>
+                            <field name="sec"/>
+                            <field name="minimum_prod"/>
+                        </group>
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action group-->
+        <record id="water_prod_req_action" model="ir.actions.act_window">
+            <field name="name">Water Production Daily</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">water.prod.daily</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="domain">[('type','=', 'shift')]</field>
+            <field name="context">{'default_type':'shift'}</field> -->
+        </record>
+
+        <record id="water_prod_req2_action" model="ir.actions.act_window">
+            <field name="name">Water Production Daily2</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">operation.boo</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="domain">[('type','=', 'shift')]</field>
+            <field name="context">{'default_type':'shift'}</field> -->
+        </record>
+
+        <record id="water_prod_req_report_action" model="ir.actions.act_window">
+            <field name="name">Water Production Daily Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">water.prod.daily</field>
+            <field name="view_mode">pivot,graph</field>
+            <!-- <field name="domain">[('type','=', 'shift')]</field>
+            <field name="context">{'default_type':'shift'}</field> -->
+        </record>
+
+
+
+    </data>
+</odoo>

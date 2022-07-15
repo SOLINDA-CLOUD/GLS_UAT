@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+    <record id="ref_origin_show_inherit_account_move" model="ir.ui.view">
+      <field name="name">ref.orgin.view.out.account</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_in_invoice_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='invoice_origin']" position="attributes">
+          <attribute name="optional">show</attribute>
+        </xpath>
+        <xpath expr="//field[@name='ref']" position="attributes">
+          <attribute name="optional">show</attribute>
+        </xpath>
+        <field name="invoice_origin" position="after">
+          <field name="total_qty_received" />
+          <field name="product_type" />
+        </field>
+      </field>
+    </record>
+
+    <record id="account_move_form_inherit_qty_received" model="ir.ui.view">
+      <field name="name">account.move.form.inherit.qty.received</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook/page/field/tree/field[@name='price_subtotal']" position="after">
+          <field name="qty_received_account" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
