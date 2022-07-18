@@ -241,7 +241,10 @@ class CostSheet(models.Model):
     def _compute_subtotal(self):
         for this in self:
             this.subtotal = sum(this.category_line_ids.mapped('price'))
-    
+
+
+
+
 class RabCategory(models.Model):
     _name = 'rab.category'
     _description = 'Rab Category'

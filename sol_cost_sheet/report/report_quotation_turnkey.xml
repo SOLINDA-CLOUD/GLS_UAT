@@ -107,7 +107,7 @@
                                 <td style="width: 7.85545%; height: 18px;">Ref</td>
                                 <td style="width: 1.97975%; height: 18px;">:</td>
                                 <td style="width: 32.0241%; height: 18px;">
-                                    <t t-esc="doc.name"/>
+                                    <t t-esc="doc.ref_turnkey"/>
                                 </td>
                             </tr>
                             <tr style="height: 36px;">

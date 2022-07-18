@@ -132,6 +132,16 @@ class CsRAP(models.Model):
             "context": {'default_rap_id':self.id},
         }
 
+
+    @api.onchange('project_id')
+    def _onchange_project_manager(self):
+            if self.project_id:
+                project_manager = ''
+                if self.project_id.user_id:
+                    project_manager = self.project_id.user_id
+                self.project_manajer = project_manager
+
+
 class RapCategory(models.Model):
     _name = 'rap.category'
     _description = 'Rap Category'
