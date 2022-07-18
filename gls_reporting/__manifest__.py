@@ -32,7 +32,7 @@
         'report/report_quotation_boo.xml',
         'report/report_quotation_oms.xml',
         'report/report_sale_order.xml',
-        # 'report/report_quotation_turnkey.xml',
+        'report/report_quotation_trading.xml',
     ],
     'license': 'LGPL-3'
     
