@@ -12,6 +12,10 @@ class SaleOrder(models.Model):
         ('normal', 'Normal'),
         ('deduct', 'Deduct'),
     ], string='Payment Scheme')
+
+    ## Other Info
+    attn_id = fields.Many2one('res.partner', string='Attn')
+    director_info = fields.Char(string='Director')
     
     
     @api.onchange('payment_schedule_line_ids')

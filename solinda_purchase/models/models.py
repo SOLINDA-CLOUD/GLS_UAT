@@ -75,6 +75,7 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     name = fields.Char(string='Order Reference')
+    notes = fields.Html(string='Notes')
 
     @api.model
     def create(self, vals):
