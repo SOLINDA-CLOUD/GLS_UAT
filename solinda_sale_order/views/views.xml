@@ -6,8 +6,6 @@
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="arch" type="xml">
-
-
         <notebook position="inside">
           <page name="payment_schedule" string="Payment Schedule">
             <group>
@@ -30,7 +28,6 @@
                 <field name="total_amount" />
                 <field name="move_id" readonly="1"/>
                 <button name="create_invoice" type="object" icon="fa-pencil-square-o" attrs="{'invisible':[('move_id','=',True)]}" />
-
               </tree>
             </field>
             <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
@@ -40,6 +37,12 @@
             <div class="oe_clear"/>
           </page>
         </notebook>
+        <field name="source_id" position="after">
+          <field name="attn_id" />
+        </field>
+        <field name="attn_id" position="after">
+          <field name="director_info" />
+        </field>
       </field>
     </record>
   </data>
