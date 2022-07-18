@@ -36,7 +36,7 @@ class CsRAP(models.Model):
     is_approver = fields.Boolean(compute='_compute_is_approver', string='Is Approver')
     reason = fields.Text('Note')
     project_code = fields.Char('Project Code', related="project_id.code")
-    project_manager = fields.Many2one('res.users', string='Project Manager',default=lambda self:self.env.user.id)
+    project_manager = fields.Many2one('res.users', string='Project Manager', related='project_id.user_id')
     
     @api.model
     def create(self, vals):
