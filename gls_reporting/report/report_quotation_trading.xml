@@ -161,8 +161,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <t t-set="no" t-value="1"/>
                                             <t t-foreach="doc.order_line" t-as="order">
-                                                <t t-set="no" t-value="1"/>
                                                 <tr style="height: 35px;">
                                                     <td style="width: 4.18709%; height: 35px; text-align: center; border: 1px solid black;">
                                                         <t t-esc="no"/>
@@ -176,24 +176,26 @@
                                                         <t t-esc="order.product_uom_qty"/> <span t-field="order.product_uom"/>
                                                     </td>
                                                     <td style="width: 20%; height: 35px; text-align: right; border: 1px solid black; padding-right:3px;">
-                                                        <t t-esc="order.price_unit"/>
+                                                        <t t-esc="order.price_unit" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
                                                     </td>
                                                     <td style="width: 20%; height: 35px; text-align: right; border: 1px solid black; padding-right:3px;">
-                                                        <strong><t t-esc="order.price_subtotal"/></strong>
+                                                        <strong><t t-esc="order.price_subtotal" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
                                                     </td>
                                                 </tr>
                                                 <t t-set="no" t-value="no + 1"/>
-                                                <tr style="height: 35px;">
-                                                    <td style="width: 4.18709%; height: 35px; text-align: right; border: 1px solid black; padding-top:7px; padding-right:5px;" colspan="4">
-                                                        <strong>TOTAL</strong>
-                                                    </td>
-                                                    <td style="width: 20%; height: 35px; text-align: right; border: 1px solid black; padding-top:7px; padding-right:5px;">
-                                                        <strong>
-                                                            <t t-esc="doc.amount_total"/>
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-                                            </t> 
+                                            </t>
+                                            
+                                            <tr style="height: 35px;">
+                                                <td style="width: 4.18709%; height: 35px; text-align: right; border: 1px solid black; padding-top:7px; padding-right:5px;" colspan="4">
+                                                    <strong>TOTAL</strong>
+                                                </td>
+                                                <td style="width: 20%; height: 35px; text-align: right; border: 1px solid black; padding-top:7px; padding-right:5px;">
+                                                    <strong>
+                                                        <t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </td>
