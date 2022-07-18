@@ -136,9 +136,9 @@ class CsRAP(models.Model):
     @api.onchange('project_id')
     def _onchange_project_manager(self):
             if self.project_id:
-                project_manager = ''
-                if self.project_id.user_id:
-                    project_manager = self.project_id.user_id
+                project_manager = self.project_id.user_id.name
+                # if self.project_id.user_id.name:
+                #     project_manager = self.project_id.user_id.name
                 self.project_manajer = project_manager
 
 
