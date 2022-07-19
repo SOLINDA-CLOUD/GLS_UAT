@@ -22,7 +22,7 @@ class JobOrderRequest(models.Model):
         ('review', 'Reviewed'),
         ('approve', 'Approved'),
     ], string='State',default='draft')
-    location = fields.Char('Location',tracking=True)
+    warehouse_id = fields.Many2one('stock.warehouse', string='Lokasi')
     problem = fields.Text('Problem(Permasalahan)',tracking=True)
     root_cause = fields.Text('Root Cause (Penyebab)',tracking=True)
     action_taken = fields.Text('Action Taken(Tindakan)',tracking=True)
@@ -37,6 +37,34 @@ class JobOrderRequest(models.Model):
     accepted_id = fields.Many2one('res.users', string='Accepted By')
     accepted_datetime = fields.Datetime('Datetime Job Complated')
     note = fields.Text('Note',tracking=True)
+    maintenance_id = fields.Many2one('maintenance.request', string='Maintenance')
+
+    def create_open_maintenance(self):
+        for i in self:
+            i.ensure_one()
+            if i.maintenance_id:
+                return {
+                        'name': 'Maintenance Request',
+                        'type': 'ir.actions.act_window',
+                        'view_mode': 'form',
+                        'res_model': 'maintenance.request',
+                        'res_id': i.maintenance_id.id,
+                        'context': {'create': False}
+                    }
+            else:
+                maintenance = self.env["maintenance.request"].create({
+                            'name': 'Request Maintenance ...',
+                            'description': i.problem,
+                            })
+                if maintenance:
+                    i.maintenance_id = maintenance.id
+                    return {
+                    'name': 'Maintenance Request',
+                    'type': 'ir.actions.act_window',
+                    'view_mode': 'form',
+                    'res_model': 'maintenance.request',
+                    'res_id': maintenance.id,
+                    }
 
     def update_line_approval(self,code):
         return (0,0,{

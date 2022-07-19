@@ -20,16 +20,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','mail','stock'],
+    'depends': ['base','mail','stock','maintenance'],
 
     # always loaded
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/sequence.xml',
+        'views/reporting_view.xml',
+        'views/pivot_graph.xml',
         'views/job_order_req.xml',
         'views/water_prod.xml',
         'views/chemical_catridge.xml',
+        'views/shutdown_system.xml',
         'views/menu_items.xml',
         'views/templates.xml',
     ],

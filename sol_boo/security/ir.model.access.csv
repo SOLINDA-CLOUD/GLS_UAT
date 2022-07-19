@@ -1,6 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_approval_job_order,sol_boo.approval_job_order,model_approval_job_order,base.group_user,1,1,1,1
 access_job_order_request,sol_boo.job_order_request,model_job_order_request,base.group_user,1,1,1,1
-access_operation_boo,sol_boo.operation_boo,model_operation_boo,base.group_user,1,1,1,1
+access_shutdown_system,sol_boo.shutdown_system,model_shutdown_system,base.group_user,1,1,1,1
 access_water_prod_daily,sol_boo.water_prod_daily,model_water_prod_daily,base.group_user,1,1,1,1
 access_chemical_catridge,sol_boo.chemical_catridge,model_chemical_catridge,base.group_user,1,1,1,1
+access_reporting_boo,sol_boo.reporting_boo,model_reporting_boo,base.group_user,1,1,1,1
