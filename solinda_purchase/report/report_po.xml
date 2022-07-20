@@ -176,7 +176,7 @@
                                     <td style="width: 20.786%; height: 18px; text-align: right;"><strong>Total Order</strong></td>
                                     <td style="width: 5.01899%; height: 18px; text-align: center;"><strong>:</strong></td>
                                     <td style="width: 24.1951%; height: 18px; text-align: right;">
-                                        <strong><t t-esc="doc.amount_untaxed" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
+                                        <strong><t t-esc="doc.amount_untaxed - doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
                                     </td>
                                 </tr>
                             </tbody>
