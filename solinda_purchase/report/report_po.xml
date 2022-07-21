@@ -148,37 +148,41 @@
                     <div class="container">
                         <table style="border-collapse: collapse; width: 100%; height: 108px;" border="1">
                             <tbody style="font-size: 12px;">
-                                <tr style="height: 18px; border: 1px solid black;">
-                                    <td style="width: 11.9792%; height: 54px;" rowspan="2">Say</td>
-                                    <td style="width: 3.45647%; height: 54px; text-align: center;" rowspan="2">:</td>
-                                    <td style="width: 34.5644%; height: 54px; border: 1px solid black;" rowspan="2">
-                                        <t t-esc="doc.currency_id.with_context(lang=doc.partner_id.lang or 'id_ID').amount_to_text(doc.amount_total)"/>
-                                    </td>
-                                    <td style="width: 20.786%; height: 18px; text-align: right;">Sub Total</td>
-                                    <td style="width: 5.01899%; height: 18px; text-align: center;">:</td>
-                                    <td style="width: 24.1951%; height: 18px; text-align: right;">
-                                        <t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
-                                    </td>
-                                </tr>
-                                <tr style="height: 18px; border: 1px solid black;">
-                                    <td style="width: 20.786%; height: 18px; text-align: right;">PPN</td>
-                                    <td style="width: 5.01899%; height: 18px; text-align: center;">:</td>
-                                    <td style="width: 24.1951%; height: 18px; text-align: right;">
-                                        <t t-esc="doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
-                                    </td>
-                                </tr>
-                                <tr style="height: 18px; border: 1px solid black;">
-                                    <td style="width: 11.9792%; height: 54px;">Note</td>
-                                    <td style="width: 3.45647%; height: 54px; text-align: center;">:</td>
-                                    <td style="width: 34.5644%; height: 54px; border: 1px solid black;">
-                                        <t t-esc="doc.notes"/>
-                                    </td>
-                                    <td style="width: 20.786%; height: 18px; text-align: right;"><strong>Total Order</strong></td>
-                                    <td style="width: 5.01899%; height: 18px; text-align: center;"><strong>:</strong></td>
-                                    <td style="width: 24.1951%; height: 18px; text-align: right;">
-                                        <strong><t t-esc="doc.amount_total - doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
-                                    </td>
-                                </tr>
+                                <t t-foreach="doc.order_line" t-as="order">
+                                    <tr style="height: 18px; border: 1px solid black;">
+                                        <td style="width: 11.9792%; height: 54px;" rowspan="2">Say</td>
+                                        <td style="width: 3.45647%; height: 54px; text-align: center;" rowspan="2">:</td>
+                                        <td style="width: 34.5644%; height: 54px; border: 1px solid black;" rowspan="2">
+                                            <t t-esc="doc.currency_id.with_context(lang=doc.partner_id.lang or 'id_ID').amount_to_text(doc.amount_total)"/>
+                                        </td>
+                                        <td style="width: 20.786%; height: 18px; text-align: right;">Sub Total</td>
+                                        <td style="width: 5.01899%; height: 18px; text-align: center;">:</td>
+                                        <td style="width: 24.1951%; height: 18px; text-align: right;">
+                                            <t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 18px; border: 1px solid black;">
+                                        <td style="width: 20.786%; height: 18px; text-align: right;">
+                                            <span t-field="order.taxes_id"/>
+                                        </td>
+                                        <td style="width: 5.01899%; height: 18px; text-align: center;">:</td>
+                                        <td style="width: 24.1951%; height: 18px; text-align: right;">
+                                            <t t-esc="doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 18px; border: 1px solid black;">
+                                        <td style="width: 11.9792%; height: 54px;">Note</td>
+                                        <td style="width: 3.45647%; height: 54px; text-align: center;">:</td>
+                                        <td style="width: 34.5644%; height: 54px; border: 1px solid black;">
+                                            <t t-esc="doc.notes"/>
+                                        </td>
+                                        <td style="width: 20.786%; height: 18px; text-align: right;"><strong>Total Order</strong></td>
+                                        <td style="width: 5.01899%; height: 18px; text-align: center;"><strong>:</strong></td>
+                                        <td style="width: 24.1951%; height: 18px; text-align: right;">
+                                            <strong><t t-esc="doc.amount_total - doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
+                                        </td>
+                                    </tr>
+                                </t>
                             </tbody>
                         </table>
                         <br />
