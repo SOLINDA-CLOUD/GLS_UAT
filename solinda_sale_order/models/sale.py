@@ -116,15 +116,21 @@ class PaymentSchedule(models.Model):
             data_payment = []
             amount_total = 0
             cost = 0
+            retensi = 0
             if self.order_id.payment_scheme == 'deduct':
                 if self.payment_type == 'termin':                
                     seq = 10
                     amount = self.total_amount
-                    dp_retensi = sum(self.order_id.payment_schedule_line_ids.filtered(lambda x : x.payment_type in ('dp','retensi')).mapped('total_amount'))
+                    dp = sum(self.order_id.payment_schedule_line_ids.filtered(lambda x : x.payment_type in ('dp')).mapped('total_amount'))
+                    data_retensi = self.order_id.payment_schedule_line_ids.filtered(lambda x : x.payment_type == 'retensi')
                     for payment in self.order_id.payment_schedule_line_ids.filtered(lambda x : x.payment_type == 'termin'):
                         if payment.id != self.id:
                             amount -= payment.move_id.amount_total
-                    amount -= dp_retensi
+                    if data_retensi.percentage_based_on == 'bill' :
+                        retensi = amount * data_retensi.bill
+                    elif data_retensi.percentage_based_on == 'progress' :
+                        retensi = amount * data_retensi.progress
+                    amount = amount - (dp + retensi)
                     data_payment.append((0,0,{
                             'sequence': 10,
                             'name': self.name,
@@ -136,6 +142,20 @@ class PaymentSchedule(models.Model):
                     }))
                     data_payment += self._include_project_cost(project,amount * (1 - self.order_id.final_profit))
                     invoice_vals['invoice_line_ids'] += data_payment
+                    moves = self.env['account.move'].sudo().with_context(default_move_type='out_invoice').create(invoice_vals)    
+                elif self.payment_type == 'retensi':
+                    data_payment.append((0,0,{
+                            'sequence': 10,
+                            'name': self.name,
+                            'account_id': self.account_id.id,
+                            'quantity': 1,
+                            'price_unit': self.total_amount,
+                            'analytic_account_id': self.order_id.analytic_account_id.id,
+                            'payment_schedule_ids': [(4, self.id)]
+                    }))
+                    data_payment += self._include_project_cost(project,self.total_amount * (1 - self.order_id.final_profit))
+                    invoice_vals['invoice_line_ids'] += data_payment
+                    
                     moves = self.env['account.move'].sudo().with_context(default_move_type='out_invoice').create(invoice_vals)    
                 else:
                     invoice_vals['invoice_line_ids'] = [(0,0,{
@@ -177,7 +197,8 @@ class PaymentSchedule(models.Model):
                         cost = self.total_amount * (1 - self.order_id.final_profit)
                     else:
                         # cost = (self.total_amount + (data_dp[0].total_amount * -1)) * (1 - self.order_id.final_profit)
-                        cost = self.total_amount * (1 - self.order_id.final_profit)
+                        # cost = self.total_amount * (1 - self.order_id.final_profit)
+                        cost = (self.total_amount + data_dp[0].total_amount) * (1 - self.order_id.final_profit)
                         
                 else:
                     invoice_vals['invoice_line_ids'] = [(0,0,{
