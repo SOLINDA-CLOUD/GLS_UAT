@@ -127,20 +127,45 @@ class PaymentSchedule(models.Model):
                         if payment.id != self.id:
                             amount -= payment.move_id.amount_total
                     if data_retensi.percentage_based_on == 'bill' :
-                        retensi = amount * data_retensi.bill
+                        retensi = self.total_amount * data_retensi.bill
                     elif data_retensi.percentage_based_on == 'progress' :
-                        retensi = amount * data_retensi.progress
+                        retensi = self.total_amount * data_retensi.progress
+                    
                     amount = amount - (dp + retensi)
-                    data_payment.append((0,0,{
-                            'sequence': 10,
-                            'name': self.name,
-                            'account_id': self.account_id.id,
-                            'quantity': 1,
-                            'price_unit': amount,
-                            'analytic_account_id': self.order_id.analytic_account_id.id,
-                            'payment_schedule_ids': [(4, self.id)]
-                    }))
-                    data_payment += self._include_project_cost(project,amount * (1 - self.order_id.final_profit))
+                    if self.deduct_dp:
+                        amount += dp
+                        record_dp = self.order_id.payment_schedule_line_ids.filtered(lambda x : x.payment_type == 'dp')
+                        data_payment.append((0,0,{
+                                'sequence': 10,
+                                'name': self.name,
+                                'account_id': self.account_id.id,
+                                'quantity': 1,
+                                'price_unit': amount,
+                                'analytic_account_id': self.order_id.analytic_account_id.id,
+                                'payment_schedule_ids': [(4, self.id)]
+                        }))
+                        data_payment.append((0,0,{
+                                'sequence': 11,
+                                'name': record_dp.name,
+                                'account_id': self.account_id.id,
+                                'quantity': 1,
+                                'price_unit': -record_dp.total_amount,
+                                'analytic_account_id': self.order_id.analytic_account_id.id,
+                                'payment_schedule_ids': [(4, self.id)]
+                        }))
+                        data_payment += self._include_project_cost(project,amount * (1 - self.order_id.final_profit))
+                        
+                    else:
+                        data_payment.append((0,0,{
+                                'sequence': 10,
+                                'name': self.name,
+                                'account_id': self.account_id.id,
+                                'quantity': 1,
+                                'price_unit': amount,
+                                'analytic_account_id': self.order_id.analytic_account_id.id,
+                                'payment_schedule_ids': [(4, self.id)]
+                        }))
+                        data_payment += self._include_project_cost(project,amount * (1 - self.order_id.final_profit))
                     invoice_vals['invoice_line_ids'] += data_payment
                     moves = self.env['account.move'].sudo().with_context(default_move_type='out_invoice').create(invoice_vals)    
                 elif self.payment_type == 'retensi':
