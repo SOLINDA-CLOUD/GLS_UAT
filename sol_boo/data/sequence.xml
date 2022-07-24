@@ -14,7 +14,8 @@
             <field name="name">Water production daily sequence</field>
             <field name="code">wpd.seqcode</field>
             <field name="padding">4</field>
-            <field name="prefix">WPD/%(day)s/%(month)s/%(y)s/</field>
+            <field name="prefix">WPD/</field>
+            <!-- <field name="prefix">WPD/%(day)s/%(month)s/%(y)s/</field> -->
         </record>
 
 

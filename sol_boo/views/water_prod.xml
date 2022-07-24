@@ -14,26 +14,6 @@
             </field>
         </record>
 
-        <!-- <record id="water_prod_view2_tree" model="ir.ui.view">
-            <field name="name">water.prod2.daily.view.tree</field>
-            <field name="model">water.prod.daily</field>
-            <field name="arch" type="xml">
-                <tree string="Water Production Daily">
-                    <field name="name"/>
-                    <field name="warehouse_id"/>
-                    <field name="date" />
-                    <field name="aktual_ro" />
-                    <field name="lwbp" />
-                    <field name="lwbp_real"/>
-                    <field name="wbp"/>
-                    <field name="wbp_real"/>
-                    <field name="sec"/>
-                    <field name="minimum_prod"/>
-                    <field name="remarks"/>
-                </tree>
-            </field>
-        </record> -->
-
         <!-- === FORM AREA === -->
         <record id="water_prod_view_form" model="ir.ui.view">
             <field name="name">water.prod.daily.view.form</field>
@@ -57,31 +37,27 @@
                         </div>
                         <group col="4">
                             <field name="warehouse_id" required="1"/>
-                            <field name="date" readonly="1"/>
+                            <field name="date" readonly="0"/>
                         </group>
                         <group >
-                            <group string="Berdasarkan Report Harian">
-                                <field name="laguna" />
-                                <field name="adjustment_prod" />
-                                <field name="now_prod" />
-                                <field name="freq_hpp" />
-                                <field name="warehouse_id" required="1"/>
-                                <field name="target_prod" />
-                                <field name="adendum" />
-                                <field name="over_target" />
-                                <field name="flow_prod" />
-                                <field name="catatan"/>
+                            <group>
+                                <field name="ro_read"/>
+                                <field name="lwbp_real"/>
+                                <field name="wbp_real"/>
+                                <field name="minimum_prod"/>
                             </group>
-                            <group string="Berdasarkan Report Pekan dan Bulanan">
+                            <group>
                                 <field name="aktual_ro" />
                                 <field name="lwbp" />
-                                <field name="lwbp_real"/>
                                 <field name="wbp"/>
-                                <field name="wbp_real"/>
                                 <field name="sec"/>
-                                <field name="minimum_prod"/>
-                                <field name="remarks" colspan="4"/>
                             </group>
+                        </group>
+                        <group col="4">
+                            <field name="saidi"/>
+                            <field name="saifi"/>
+                            <field colspan="4" name="remarks" />
+
                         </group>
 
                         <notebook>
@@ -89,14 +65,16 @@
                                 <field name="shutdown_system_line" nolabel="1" widget="one2many_list">
                                     <tree editable="bottom">
                                         <field name="time"/>
+                                        <field name="end_time"/>
                                         <field name="notes" />
-                                        <field name="type"/>
+                                        <!-- <field name="type"/> -->
+                                        <field name="is_trouble"/>
                                         <field name="state" readonly="1"/>
                                         <field name="warehouse_id" invisible="1"/>
                                         <field name="job_order_id" invisible="1"/>
                                         <field name="water_prod_id" invisible="1"/>
-                                        <button string="Open" name="create_open_job_order" type="object" class="oe_highlight"/>
-                                        <button string="Create/Open Job Order Request" name="create_open_job_order" type="object" class="oe_highlight"/>
+                                        <!-- <button string="Open" name="create_open_job_order" type="object" class="oe_highlight"/> -->
+                                        <!-- <button string="Create/Open Job Order Request" name="create_open_job_order" type="object" class="oe_highlight"/> -->
                                     </tree>
                                 </field>
                             </page>

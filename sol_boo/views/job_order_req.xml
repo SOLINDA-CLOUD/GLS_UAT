@@ -10,14 +10,12 @@
                         <button name="submit_jor" type="object" string="Request" states="draft" class="oe_highlight"/>
                         <button name="review_jor" type="object" string="Review" states="req" class="oe_highlight" />
                         <button name="approve_jor" type="object" string="Approve" states="review" class="oe_highlight" />
-                        <!-- <button name="cancel_jor" type="object" string="Cancel" states="review,approve" class="oe_highlight"/> -->
-                        <!-- <button name="set_to_draft" type="object" string="Set To Draft" states="approve"/> -->
+                        <button name="set_to_draft" type="object" string="Set To Draft" states="req,review,approve"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,req,review,approve" />
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="create_open_maintenance" class="oe_stat_button" type="object">
-                                <!-- icon="fa-user-circle" -->
+                            <button name="create_open_maintenance" class="oe_stat_button" icon="fa fa-coffee" type="object">
                                 <field name="maintenance_id" widget="statinfo" string="Maintenance"/>
                             </button>
                         </div>

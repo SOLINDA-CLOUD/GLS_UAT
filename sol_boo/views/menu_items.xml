@@ -5,7 +5,6 @@
 
 
     <menuitem name="BOO" id="sol_boo.boo_menu" parent="sol_boo.root_operation_boo_oms"/>
-    <menuitem name="OMS" id="sol_boo.oms_menu" parent="sol_boo.root_operation_boo_oms"/>
     <menuitem name="Water Production" action="sol_boo.water_prod_req_action" id="input_water_menu" parent="sol_boo.root_operation_boo_oms" sequence="2"/>
     <menuitem name="Chemical &amp; Catridge" action="sol_boo.chemical_catridge_req_action" id="input_chemical_catridge_menu" parent="sol_boo.root_operation_boo_oms" sequence="4"/>
     <menuitem name="Job Order Request" action="sol_boo.job_order_req_action" id="job_order_request_menu" parent="sol_boo.root_operation_boo_oms" sequence="5"/>
@@ -15,6 +14,14 @@
     <menuitem name="Generate Report" action="sol_boo.action_report_reporting_boo" id="geenrate_report_menu" parent="sol_boo.reporting_boo_menu" sequence="1"/>
     <menuitem name="Water Production Report" action="sol_boo.water_prod_req_report_action" id="input_water_prod_report_menu" parent="sol_boo.reporting_boo_menu" sequence="2"/>
     <menuitem name="Chemical &amp; Catridge Report" action="sol_boo.chemical_catridge_report_action" id="input_chemical_catridge_report_menu" parent="sol_boo.reporting_boo_menu" sequence="3"/>
+
+
+    <menuitem name="OMS" id="sol_boo.root_operation_oms"/>
+    <menuitem name="Chemical &amp; Catridge" action="sol_boo.chemical_catridge_oms_action" id="input_chemical_catridge_oms_menu" parent="sol_boo.root_operation_oms" sequence="1"/>
+    <menuitem name="Reporting" id="sol_boo.reporting_oms_menu" parent="sol_boo.root_operation_oms" sequence="2"/>
+    <menuitem name="Generate Report" action="sol_boo.action_report_reporting_boo" id="geenrate_report_menu" parent="sol_boo.reporting_boo_menu" sequence="1"/>
+    <menuitem name="Chemical &amp; Catridge Report" action="chemical_catridge_report_oms_action" id="input_chemical_catridge_omsreport_menu" parent="sol_boo.root_operation_oms" sequence="3"/>
+
 
   </data>
 </odoo>
