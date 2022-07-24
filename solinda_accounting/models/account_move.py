@@ -42,7 +42,7 @@ class AccountMove(models.Model):
             )
 
 
-    total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
+    # total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
     total_qty_received = fields.Integer(
         compute='_compute_total_qty_received', string='Qty Received', store=True)
     invoice_line_ids = fields.One2many('account.move.line', 'move_id', string='Invoice lines',
@@ -66,9 +66,9 @@ class AccountMoveLine(models.Model):
 
     purchase_line_id = fields.Many2one(
         'purchase.order.line', 'Purchase Order Line', ondelete='set null', index=True)
-    sale_order_line_id = fields.Many2one('sale.order.line', string='Sale Order Line', ondelete='set null', index=True)
     qty_received_account = fields.Float(related='purchase_line_id.qty_received', store=True, string="Qty Received")
     product_id = fields.Many2one(
         'product.product', string='Product', ondelete='restrict')
     detailed_type = fields.Selection(related='product_id.detailed_type', string='Product Type')
+    sale_order_line_id = fields.Many2one('sale.order.line', string='Sale Order Line', ondelete='set null', index=True)
     qty_delivered_account = fields.Float(related='sale_order_line_id.qty_delivered', store=True, string='Qty Delivered')
