@@ -22,7 +22,7 @@ class JobOrderRequest(models.Model):
         ('review', 'Reviewed'),
         ('approve', 'Approved'),
     ], string='State',default='draft')
-    warehouse_id = fields.Many2one('stock.warehouse', string='Lokasi')
+    warehouse_id = fields.Many2one('stock.location', string='Lokasi',domain=[("usage", "=", "internal")])
     problem = fields.Text('Problem(Permasalahan)',tracking=True)
     root_cause = fields.Text('Root Cause (Penyebab)',tracking=True)
     action_taken = fields.Text('Action Taken(Tindakan)',tracking=True)

@@ -98,7 +98,7 @@ class WaterProdDaily(models.Model):
     # IRISAN
     name = fields.Char('Name',tracking=True)
     date = fields.Date('Date',default=fields.Date.today,tracking=True)
-    warehouse_id = fields.Many2one('stock.warehouse', string='Lokasi',tracking=True)
+    warehouse_id = fields.Many2one('stock.location',domain=[("usage", "=", "internal")],string='Lokasi',tracking=True)
 
     # HARIAN
     # laguna = fields.Char('Laguna',tracking=True)
@@ -124,8 +124,8 @@ class WaterProdDaily(models.Model):
     hasil_prod = fields.Float('Hasil Produksi',tracking=True)
     remarks = fields.Text('Remarks',tracking=True)
     water_prod_id = fields.Many2one('water.prod.daily', string='water_prod',tracking=True)
-    saidi = fields.Float('Saidi durasi',compute="_compute_saidi_saifi",digit=(0,0))
-    saifi = fields.Integer('Saifi kali',compute="_compute_saidi_saifi")
+    saidi = fields.Float('Saidi (minute)',compute="_compute_saidi_saifi",digit=(0,0))
+    saifi = fields.Integer('Saifi',compute="_compute_saidi_saifi")
     # LINE
     shutdown_system_line = fields.One2many('shutdown.system', 'water_prod_id', string='Shutdown System')
 

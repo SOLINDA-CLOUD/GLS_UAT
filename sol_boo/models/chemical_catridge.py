@@ -6,7 +6,7 @@ class ChemicalCatridge(models.Model):
     _order = 'date desc'
 
     product_id = fields.Many2one('product.product', string='Product/Chemical')
-    warehouse_id = fields.Many2one('stock.warehouse', string='Lokasi')
+    warehouse_id = fields.Many2one('stock.location', string='Lokasi',domain=[("usage", "=", "internal")])
     date = fields.Date('Date',default=fields.Date.today)
     stock_awal = fields.Float('Stock Awal')
     penerimaan = fields.Float('Penerimaan')

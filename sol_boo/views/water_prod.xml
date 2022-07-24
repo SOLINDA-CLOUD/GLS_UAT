@@ -69,7 +69,7 @@
                                         <field name="notes" />
                                         <!-- <field name="type"/> -->
                                         <field name="is_trouble"/>
-                                        <field name="state" readonly="1"/>
+                                        <!-- <field name="state" readonly="1"/> -->
                                         <field name="warehouse_id" invisible="1"/>
                                         <field name="job_order_id" invisible="1"/>
                                         <field name="water_prod_id" invisible="1"/>

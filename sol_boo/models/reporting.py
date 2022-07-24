@@ -6,7 +6,7 @@ class ReporttingBoo(models.TransientModel):
     
 
     type = fields.Selection([('water_prod', 'Water Production'),('chemical_catridge', 'Chemical Catridge')], string='Type')
-    warehouse_id = fields.Many2many('stock.warehouse', string='Lokasi')
+    warehouse_id = fields.Many2many('stock.location', string='Lokasi',domain=[("usage", "=", "internal")])
     product_ids = fields.Many2many('product.product', string='Product')
     date_from = fields.Date('Date From')
     date_to = fields.Date('Date To')
