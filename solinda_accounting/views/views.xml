@@ -37,9 +37,9 @@
         <xpath expr="//notebook/page/field/tree/field[@name='price_subtotal']" position="after">
           <field name="qty_received_account" />
         </xpath>
-        <xpath expr="//notebook/page/field/tree/field[@name='qty_received_account']" position="after">
+        <!-- <xpath expr="//notebook/page/field/tree/field[@name='qty_received_account']" position="after">
           <field name="qty_delivered_account" />
-        </xpath>
+        </xpath> -->
       </field>
     </record>
   </data>
