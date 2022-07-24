@@ -1,7 +1,7 @@
 <odoo>
   <data>
 
-    <menuitem name="Operation BOO" id="sol_boo.root_operation_boo_oms"/>
+    <menuitem name="Operation BOO" id="sol_boo.root_operation_boo_oms" web_icon="sol_boo/static/description/boo.png"/>
 
 
     <menuitem name="BOO" id="sol_boo.boo_menu" parent="sol_boo.root_operation_boo_oms"/>
@@ -16,7 +16,7 @@
     <menuitem name="Chemical &amp; Catridge Report" action="sol_boo.chemical_catridge_report_action" id="input_chemical_catridge_report_menu" parent="sol_boo.reporting_boo_menu" sequence="3"/>
 
 
-    <menuitem name="OMS" id="sol_boo.root_operation_oms"/>
+    <menuitem name="OMS" id="sol_boo.root_operation_oms" web_icon="sol_boo/static/description/oms.png"/>
     <menuitem name="Chemical &amp; Catridge" action="sol_boo.chemical_catridge_oms_action" id="input_chemical_catridge_oms_menu" parent="sol_boo.root_operation_oms" sequence="1"/>
     <menuitem name="Reporting" id="sol_boo.reporting_oms_menu" parent="sol_boo.root_operation_oms" sequence="2"/>
     <menuitem name="Generate Report" action="sol_boo.action_report_reporting_boo" id="geenrate_report_menu" parent="sol_boo.reporting_boo_menu" sequence="1"/>
