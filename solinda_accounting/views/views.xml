@@ -18,8 +18,8 @@
       </field>
     </record>
 
-    <!-- <record id="ref_origin_show_inherit_account_move" model="ir.ui.view">
-      <field name="name">ref.orgin.view.out.account</field>
+    <record id="account_inherit_account_move" model="ir.ui.view">
+      <field name="name">account.inherit.move.view.out.</field>
       <field name="model">account.move</field>
       <field name="inherit_id" ref="account.view_out_invoice_tree"/>
       <field name="arch" type="xml">
@@ -27,7 +27,7 @@
           <field name="total_delivered_qty" />
         </field>
       </field>
-    </record> -->
+    </record>
 
     <record id="account_move_form_inherit_qty_received" model="ir.ui.view">
       <field name="name">account.move.form.inherit.qty.received</field>
@@ -37,9 +37,9 @@
         <xpath expr="//notebook/page/field/tree/field[@name='price_subtotal']" position="after">
           <field name="qty_received_account" />
         </xpath>
-        <!-- <xpath expr="//notebook/page/field/tree/field[@name='qty_received_account']" position="after">
+        <xpath expr="//notebook/page/field/tree/field[@name='qty_received_account']" position="after">
           <field name="qty_delivered_account" />
-        </xpath> -->
+        </xpath>
       </field>
     </record>
   </data>
