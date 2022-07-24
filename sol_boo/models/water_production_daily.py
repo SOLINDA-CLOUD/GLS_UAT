@@ -26,7 +26,7 @@ class ShutdownSystem(models.Model):
     approve_id = fields.Many2one('res.users', string='Approved By')
     job_order_id = fields.Many2one('job.order.request', string='Job Order')
     water_prod_id = fields.Many2one('water.prod.daily', string='Water Production')
-    warehouse_id = fields.Many2one('stock.warehouse', string='Lokasi',related="water_prod_id.warehouse_id")
+    warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id")
     is_trouble = fields.Boolean('Trouble')
     trouble_minute = fields.Float(compute='_compute_trouble_minute', string='Trouble Minute')
     
