@@ -71,5 +71,5 @@ class AccountMoveLine(models.Model):
         'product.product', string='Product', ondelete='restrict')
     detailed_type = fields.Selection(related='product_id.detailed_type', string='Product Type')
 
-    stock_move_line_id = fields.Many2one('stock.move.line', string='Stock Move Line', ondelete='set null', index=True)
-    qty_delivered_account = fields.Float(related='stock_move_line_id.qty_done', store=True, string='Qty Delivered')
+    stock_move_line_id = fields.Many2one('stock.move', string='Stock Move Line', ondelete='set null', index=True)
+    qty_delivered_account = fields.Float(related='stock_move_line_id.quantity_done', store=True, string='Qty Delivered')
