@@ -136,7 +136,7 @@
                                             <t t-esc="order.discount"/>
                                         </td>
                                         <td style="width: 14.3986%; text-align: right; border: 1px solid black;">
-                                            <t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
+                                            <t t-esc="doc.amount_untaxed" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
                                         </td>
                                     </tr>
                                     <t t-set="no" t-value="no + 1"/>
@@ -158,13 +158,11 @@
                                         <td style="width: 20.786%; height: 18px; text-align: right;">Sub Total</td>
                                         <td style="width: 5.01899%; height: 18px; text-align: center;">:</td>
                                         <td style="width: 24.1951%; height: 18px; text-align: right;">
-                                            <t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
+                                            <t t-esc="doc.amount_untaxed" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
                                         </td>
                                     </tr>
                                     <tr style="height: 18px; border: 1px solid black;">
-                                        <td style="width: 20.786%; height: 18px; text-align: right;">
-                                            <span t-field="order.taxes_id"/>
-                                        </td>
+                                        <td style="width: 20.786%; height: 18px; text-align: right;">Taxes</td>
                                         <td style="width: 5.01899%; height: 18px; text-align: center;">:</td>
                                         <td style="width: 24.1951%; height: 18px; text-align: right;">
                                             <t t-esc="doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/>
@@ -179,7 +177,7 @@
                                         <td style="width: 20.786%; height: 18px; text-align: right;"><strong>Total Order</strong></td>
                                         <td style="width: 5.01899%; height: 18px; text-align: center;"><strong>:</strong></td>
                                         <td style="width: 24.1951%; height: 18px; text-align: right;">
-                                            <strong><t t-esc="doc.amount_total - doc.amount_tax" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
+                                            <strong><t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
                                         </td>
                                     </tr>
                                 </t>
