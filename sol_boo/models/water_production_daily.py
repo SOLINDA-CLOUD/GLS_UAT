@@ -5,30 +5,32 @@ from dateutil import relativedelta
 class ShutdownSystem(models.Model):
     _name = 'shutdown.system'
     _description = 'Shutdown System'
-    
-    time = fields.Datetime('Waktu', default=datetime.now())
-    end_time = fields.Datetime('Waktu Akhir', default=datetime.now())
-    notes = fields.Text('Keterangan')
-    jadwal_pelaksana = fields.Date('Jadwal Pelaksanaan')
+    _inherit = 'mail.thread'
+
+    trouble_id = fields.Many2one('trouble.master', string='Keterangan',tracking=True)
+    time = fields.Datetime('Waktu', default=datetime.now(),tracking=True)
+    end_time = fields.Datetime('Waktu Akhir', default=datetime.now(),tracking=True)
+    # notes = fields.Text('Keterangan')
+    jadwal_pelaksana = fields.Date('Jadwal Pelaksanaan',tracking=True)
     type = fields.Selection([
         ('trouble', 'Input Trouble'),
         ('cleaning', 'Request Cleaning'),
         ('backwash', 'Backwash'),
         ('grease', 'Request Grease')
-    ], string='type')
+    ], string='type',related="trouble_id.type",tracking=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('approve', 'Approved'),
-    ], string='Status',default="draft")
+    ], string='Status',default="draft",tracking=True)
     attachment = fields.Binary('Attachment')
-    filename = fields.Char('File Name')
-    request_id = fields.Many2one('res.users', string='Requested By')
-    approve_id = fields.Many2one('res.users', string='Approved By')
-    job_order_id = fields.Many2one('job.order.request', string='Job Order')
-    water_prod_id = fields.Many2one('water.prod.daily', string='Water Production')
-    warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id")
-    is_trouble = fields.Boolean('Trouble')
-    trouble_minute = fields.Float(compute='_compute_trouble_minute', string='Trouble Minute')
+    filename = fields.Char('File Name',tracking=True)
+    request_id = fields.Many2one('res.users', string='Requested By',tracking=True)
+    approve_id = fields.Many2one('res.users', string='Approved By',tracking=True)
+    job_order_id = fields.Many2one('job.order.request', string='Job Order',tracking=True)
+    water_prod_id = fields.Many2one('water.prod.daily', string='Water Production',tracking=True)
+    warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id",tracking=True)
+    is_trouble = fields.Boolean('Trouble',related="trouble_id.is_trouble",tracking=True)
+    trouble_minute = fields.Float(compute='_compute_trouble_minute', string='Trouble Minute',tracking=True)
     
     @api.onchange('type')
     def _onchange_type(self):
@@ -116,9 +118,9 @@ class WaterProdDaily(models.Model):
     aktual_ro = fields.Float('Konsumsi Aktual Ro(m3)',tracking=True,compute="_get_actual_ro")
     ro_read = fields.Integer('Ro Read')
     lwbp = fields.Integer('LWBP',tracking=True,compute='_get_lwbp')
-    lwbp_real = fields.Float('LWBP Real',tracking=True)
+    lwbp_read = fields.Float('LWBP read',tracking=True)
     wbp = fields.Integer(string='WBP',tracking=True,compute='_get_wbp')
-    wbp_real = fields.Float('WBP Real',tracking=True)
+    wbp_read = fields.Float('WBP read',tracking=True)
     sec = fields.Float('SEC',tracking=True,compute="_ge_sec")
     minimum_prod = fields.Integer('Minimum Produksi',tracking=True)
     hasil_prod = fields.Float('Hasil Produksi',tracking=True)
@@ -130,25 +132,25 @@ class WaterProdDaily(models.Model):
     shutdown_system_line = fields.One2many('shutdown.system', 'water_prod_id', string='Shutdown System')
 
     
-    @api.depends('wbp_real','warehouse_id','date')
+    @api.depends('wbp_read','warehouse_id','date')
     def _get_wbp(self):
         for i in self:
             if i.warehouse_id and i.date:
-                wbp_yes = self.env["water.prod.daily"].search([("warehouse_id", "=", i.warehouse_id.id),('date','=',i.date - relativedelta.relativedelta(days=1))]).wbp_real
+                wbp_yes = self.env["water.prod.daily"].search([("warehouse_id", "=", i.warehouse_id.id),('date','=',i.date - relativedelta.relativedelta(days=1))]).wbp_read
                 if wbp_yes:
-                    i.wbp = (i.wbp_real - wbp_yes) * 2000
+                    i.wbp = (i.wbp_read - wbp_yes) * 2000
                 else:
                     i.wbp = 0
             else:
                 i.wbp = 0
     
-    @api.depends('lwbp_real','warehouse_id','date')
+    @api.depends('lwbp_read','warehouse_id','date')
     def _get_lwbp(self):
         for i in self:
             if i.warehouse_id and i.date:
-                lwbp_yes = self.env["water.prod.daily"].search([("warehouse_id", "=", i.warehouse_id.id),('date','=',i.date - relativedelta.relativedelta(days=1))]).lwbp_real
+                lwbp_yes = self.env["water.prod.daily"].search([("warehouse_id", "=", i.warehouse_id.id),('date','=',i.date - relativedelta.relativedelta(days=1))]).lwbp_read
                 if lwbp_yes:
-                    i.lwbp = (i.lwbp_real - lwbp_yes) * 2000
+                    i.lwbp = (i.lwbp_read - lwbp_yes) * 2000
                 else:
                     i.lwbp = 0
             else:

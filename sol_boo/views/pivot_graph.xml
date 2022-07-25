@@ -10,9 +10,9 @@
                     <field name="date" type="row" />
                     <field name="aktual_ro" />
                     <field name="lwbp" />
-                    <field name="lwbp_real" />
+                    <field name="lwbp_read" />
                     <field name="wbp" />
-                    <field name="wbp_real" />
+                    <field name="wbp_read" />
                     <field name="sec" />
                     <field name="minimum_prod" />
                     <field name="hasil_prod" />
