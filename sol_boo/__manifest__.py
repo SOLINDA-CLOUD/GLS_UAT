@@ -35,6 +35,7 @@
         'views/water_prod.xml',
         'views/chemical_catridge.xml',
         'views/shutdown_system.xml',
+        'views/maintenance_request.xml',
         'views/menu_items.xml',
         'views/templates.xml',
     ],

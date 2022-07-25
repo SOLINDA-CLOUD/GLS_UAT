@@ -6,3 +6,4 @@ access_water_prod_daily,sol_boo.water_prod_daily,model_water_prod_daily,base.gro
 access_chemical_catridge,sol_boo.chemical_catridge,model_chemical_catridge,base.group_user,1,1,1,1
 access_reporting_boo,sol_boo.reporting_boo,model_reporting_boo,base.group_user,1,1,1,1
 access_trouble_master,sol_boo.trouble_master,model_trouble_master,base.group_user,1,1,1,1
+access_action_plan_maintenance,sol_boo.action_plan_maintenance,model_action_plan_maintenance,base.group_user,1,1,1,1
