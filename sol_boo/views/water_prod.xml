@@ -65,11 +65,11 @@
                                 <field name="shutdown_system_line" nolabel="1" widget="one2many_list">
                                     <tree editable="bottom">
                                         <field name="time"/>
-                                        <field name="end_time" option="show"/>
+                                        <field name="end_time" optional="show"/>
                                         <field name="trouble_id" />
-                                        <field name="type" option="show"/>
-                                        <field name="is_trouble" option="show"/>
-                                        <field name="state" readonly="1" option="hide"/>
+                                        <field name="type" optional="show"/>
+                                        <field name="is_trouble" optional="show"/>
+                                        <field name="state" readonly="1" optional="hide"/>
                                         <field name="warehouse_id" invisible="1"/>
                                         <field name="job_order_id" invisible="1"/>
                                         <field name="water_prod_id" invisible="1"/>
