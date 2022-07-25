@@ -147,7 +147,7 @@ class PaymentSchedule(models.Model):
                         data_payment.append((0,0,{
                                 'sequence': 11,
                                 'name': record_dp.name,
-                                'account_id': self.account_id.id,
+                                'account_id': record_dp.account_id.id,
                                 'quantity': 1,
                                 'price_unit': -record_dp.total_amount,
                                 'analytic_account_id': self.order_id.analytic_account_id.id,
