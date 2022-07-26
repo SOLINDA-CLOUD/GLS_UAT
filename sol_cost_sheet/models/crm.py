@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
+    _sql_constraints = [('project_code_must_uniq', 'unique(project_code)', 'Project Code Must Be Unique!')]
     
     rab_id = fields.Many2one('cost.sheet', string='RAB')
     project_code = fields.Char('Project Code')
