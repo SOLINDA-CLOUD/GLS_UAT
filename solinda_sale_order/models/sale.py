@@ -25,8 +25,13 @@ class SaleOrder(models.Model):
         total = sum(self.payment_schedule_line_ids.mapped('bill'))
         if total > 1:
             raise ValidationError("Total in Payment Schedule is greater then total amount in sales")
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
     
-    
+    qty_delivered = fields.Float(readonly=False)
+
+
 class PaymentSchedule(models.Model):
     _name = 'payment.schedule'
     _description = 'Payment Schedule'

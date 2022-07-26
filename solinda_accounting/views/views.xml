@@ -51,6 +51,9 @@
         <field name="payment_date" position="before">
           <field name="other_costs"/>
         </field>
+        <field name="other_costs" position="before">
+          <field name="other_account"/>
+        </field>
       </field>
     </record>
 
