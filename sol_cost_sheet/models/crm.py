@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+import collections
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
@@ -7,6 +8,14 @@ class CrmLead(models.Model):
     rab_id = fields.Many2one('cost.sheet', string='RAB')
     project_code = fields.Char('Project Code')
     
+    @api.constrains('project_code')
+    def _constrains_project_code(self):
+        for this in self:
+            data = self.env['crm.lead'].search([]).mapped('project_code')
+            dup = len([item for item, count in collections.Counter(data).items() if count > 1])
+            if dup > 0:
+                raise ValidationError("Project Code Already Exist!")
+
     def action_new_quotation(self):
         action = self.env["ir.actions.actions"]._for_xml_id("sale_crm.sale_action_quotations_new")
         action['context'] = {
