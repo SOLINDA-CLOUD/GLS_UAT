@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 import collections
+from odoo.exceptions import ValidationError
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
