@@ -18,7 +18,7 @@ class ShutdownSystem(models.Model):
         ('cleaning', 'Request Cleaning'),
         ('backwash', 'Backwash'),
         ('grease', 'Request Grease')
-    ], string='type',related="trouble_id.type",tracking=True)
+    ], string='type',related="trouble_id.type",tracking=True,store=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('approve', 'Approved'),
