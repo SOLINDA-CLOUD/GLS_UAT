@@ -1,5 +1,10 @@
 from odoo import _, api, fields, models
 
+class StockLocation(models.Model):
+    _inherit = 'stock.location'
+
+    chemical_catridge_usage = fields.Float('Chemical Catridge Usage')
+
 class ChemicalCatridge(models.Model):
     _name = 'chemical.catridge'
     _description = 'Chemical Catridge'
@@ -34,11 +39,11 @@ class ChemicalCatridge(models.Model):
                 i.pemakaian = 0
 
 
-    @api.depends('sisa_tangki')
+    @api.depends('sisa_tangki','product_id')
     def _compute_sisa_tangki_kg(self):
         for i in self:
-            if i.sisa_tangki:
-                i.sisa_tangki_kg = i.sisa_tangki / 100 *5
+            if i.sisa_tangki and i.warehouse_id:
+                i.sisa_tangki_kg = i.sisa_tangki / 100 * i.warehouse_id.chemical_catridge_usage
             else:
                 i.sisa_tangki_kg = 0
 

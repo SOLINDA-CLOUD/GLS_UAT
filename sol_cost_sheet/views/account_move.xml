@@ -12,12 +12,9 @@
                     <field name="purchase_order_id" readonly="1" attrs="{'invisible': [('parent.move_type', '!=', 'in_invoice')]}" />
                 </xpath>
 
-
                 <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='partner_id']" position="before">
                     <field name="purchase_order_id" readonly="1"/>
                 </xpath>
-
-
             </field>
         </record>
 

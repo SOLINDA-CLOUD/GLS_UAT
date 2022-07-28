@@ -1,6 +1,7 @@
 from odoo import _, api, fields, models
 from datetime import datetime,date
 from dateutil import relativedelta
+from odoo.exceptions import ValidationError
 
 class ShutdownSystem(models.Model):
     _name = 'shutdown.system'
@@ -21,8 +22,9 @@ class ShutdownSystem(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('approve', 'Approved'),
+        ('done', 'Done')
     ], string='Status',default="draft",tracking=True)
-    attachment = fields.Binary('Attachment')
+    attachment = fields.Binary('Upload')
     filename = fields.Char('File Name',tracking=True)
     request_id = fields.Many2one('res.users', string='Requested By',tracking=True)
     approve_id = fields.Many2one('res.users', string='Approved By',tracking=True)
@@ -31,7 +33,45 @@ class ShutdownSystem(models.Model):
     warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id",tracking=True)
     is_trouble = fields.Boolean('Trouble',related="trouble_id.is_trouble",tracking=True)
     trouble_minute = fields.Float(compute='_compute_trouble_minute', string='Trouble Minute',tracking=True)
-    
+    maintenance_id = fields.Many2one('maintenance.request', string='Maintenance')
+
+    def create_open_maintenance(self):
+        for i in self:
+            i.ensure_one()
+            if i.maintenance_id:
+                return {
+                        'name': 'Maintenance Request',
+                        'type': 'ir.actions.act_window',
+                        'view_mode': 'form',
+                        'res_model': 'maintenance.request',
+                        'res_id': i.maintenance_id.id,
+                        'context': {'create': False}
+                    }
+            else:
+                maintenance = self.env["maintenance.request"].create({
+                            'name': 'Maintenance ...',
+                            'description': i.problem,
+                            })
+                if maintenance:
+                    i.maintenance_id = maintenance.id
+                    return {
+                    'name': 'Maintenance Request',
+                    'type': 'ir.actions.act_window',
+                    'view_mode': 'form',
+                    'res_model': 'maintenance.request',
+                    'res_id': maintenance.id,
+                    }
+
+    def state_done(self):
+        self.state = 'done'
+
+    def confirm_backwash(self):
+        for i in self:
+            if i.type and i.filename:
+                i.state_done()
+            else:
+                raise ValidationError('Attachment not upload yet.\nPlease upload first!')
+
     @api.onchange('type')
     def _onchange_type(self):
         if self.type == 'trouble':
@@ -40,7 +80,6 @@ class ShutdownSystem(models.Model):
     def approve_button(self):
         for i in self:
             i.state = 'approve'
-            i.create_open_job_order()
 
     @api.depends('time','end_time')
     def _compute_trouble_minute(self):

@@ -30,6 +30,7 @@
         'data/data.xml',
         'views/reporting_view.xml',
         'views/pivot_graph.xml',
+        'views/stock_location.xml',
         'views/trouble_master.xml',
         'views/job_order_req.xml',
         'views/water_prod.xml',

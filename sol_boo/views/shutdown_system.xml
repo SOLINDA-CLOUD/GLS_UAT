@@ -23,17 +23,36 @@
             <field name="arch" type="xml">
                 <form string="Shutdown System">
                     <header>
-                        <button name="approve_button" type="object" string="Request" states="draft" class="oe_highlight"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,approve" />
+                        <button name="confirm_backwash" type="object" string="Request" states="draft" attrs="{'invisible': ['|',('type', '!=', 'backwash')]}" class="oe_highlight"/>
+                        <!-- <button name="approve_button" type="object" string="Request" states="draft" class="oe_highlight"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" attrs="{'invisible': [('type', '!=', 'backwash')]}"/>
                     </header>
                     <sheet>
-                        <div class="oe_button_box" name="button_box">
-                            <!-- attrs="{'invisible': [('job_order_id', '=', False)]}" -->
+                        <div class="oe_button_box" name="button_box" attrs="{'invisible': [('type', '!=', 'trouble')]}">
                             <button name="create_open_job_order" class="oe_stat_button" type="object" icon="fa fa-book">
-                                <field name="job_order_id" widget="statinfo" string="Job Order"/>
+                                <field name="job_order_id" widget="statinfo" readonly="1" string="Job Order"/>
+                            </button>
+                            <button name="create_open_maintenance" attrs="{'invisible': [('type', 'not in', ('cleaning','grease'))]}" class="oe_stat_button" type="object" icon="fa fa-cogs">
+                                <field name="maintenance_id" widget="statinfo" readonly="1"/>
                             </button>
                         </div>
-                        <group col="4">
+
+                        <group name="cleaning_flow" attrs="{'invisible': [('type', '!=', 'backwash')]}">
+                            <field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="attachment" string="Upload laporan" widget="binary" filename="filename"/>
+                            <field name="filename" invisible="1"/>
+                        </group>
+
+                        <group name="backwash_flow" attrs="{'invisible': [('type', '!=', 'backwash')]}">
+                            <field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="attachment" widget="binary" filename="filename"/>
+                            <field name="filename" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                        </group>
+
+                        <!-- <group col="4">
                             <field name="warehouse_id"/>
                             <field name="time"/>
                             <field name="trouble_id" colspan="4"/>
@@ -46,7 +65,7 @@
                         <group col="4">
                             <field name="request_id"/>
                             <field name="approve_id"/>
-                        </group>
+                        </group> -->
 
                     </sheet>
                     <div class="oe_chatter">
@@ -56,7 +75,6 @@
                 </form>
             </field>
         </record>
-
 
 
         <!-- Action group-->
