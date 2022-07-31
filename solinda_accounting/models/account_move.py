@@ -22,6 +22,12 @@ class AccountMove(models.Model):
             this.total_qty_received = sum(
                 this.invoice_line_ids.mapped('qty_received_account'))
 
+    @api.depends('invoice_line_ids.product_id')
+    def _compute_total_qty_ordered(self):
+        for this in self:
+            this.total_qty_ordered = sum(
+                this.invoice_line_ids.mapped('qty_ordered_account'))
+
     @api.depends('invoice_line_ids.detailed_type')
     def _compute_product_type(self):
         label = dict(self._fields['detailed_type'].selection)
@@ -43,8 +49,9 @@ class AccountMove(models.Model):
 
     total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
     
-    total_qty_received = fields.Integer(
-        compute='_compute_total_qty_received', string='Qty Received', store=True)
+    total_qty_received = fields.Integer(compute='_compute_total_qty_received', string='Qty Received', store=True)
+
+    total_qty_ordered = fields.Integer(compute='_compute_total_qty_ordered', string='Qty Ordered', store=True)
     invoice_line_ids = fields.One2many('account.move.line', 'move_id', string='Invoice lines',
                                        copy=False, readonly=True,
                                        domain=[
@@ -67,6 +74,7 @@ class AccountMoveLine(models.Model):
     purchase_line_id = fields.Many2one(
         'purchase.order.line', 'Purchase Order Line', ondelete='set null', index=True)
     qty_received_account = fields.Float(related='purchase_line_id.qty_received', store=True, string="Qty Received")
+    qty_ordered_account = fields.Float(related='purchase_line_id.product_qty', store=True, string="Qty Ordered")
     product_id = fields.Many2one(
         'product.product', string='Product', ondelete='restrict')
     detailed_type = fields.Selection(related='product_id.detailed_type', string='Product Type')
