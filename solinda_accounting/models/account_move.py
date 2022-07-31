@@ -59,13 +59,7 @@ class AccountMove(models.Model):
              'A service is a non-material product you provide.')
 
     total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
-    sale_order_line = fields.Many2one('sale.order.line', string='Order Lines', ondelete='set null', index=True)
-    qty_delivered_account = fields.Float(compute='_compute_delivered', string='Qty Delivered', store=True)
-    
-    @api.depends('sale_order_line')
-    def _compute_delivered(self):
-        if self.sale_order_line:
-            self.qty_delivered_account = self.sale_order_line.qty_delivered    
+  
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
@@ -76,4 +70,12 @@ class AccountMoveLine(models.Model):
     product_id = fields.Many2one(
         'product.product', string='Product', ondelete='restrict')
     detailed_type = fields.Selection(related='product_id.detailed_type', string='Product Type')
+
+    sale_order_line = fields.Many2one('sale.order.line', string='Order Lines', ondelete='set null', index=True)
+    qty_delivered_account = fields.Float(compute='_compute_delivered', string='Qty Delivered', store=True)
+    
+    @api.depends('sale_order_line')
+    def _compute_delivered(self):
+        if self.sale_order_line:
+            self.qty_delivered_account = self.sale_order_line.qty_delivered  
 
