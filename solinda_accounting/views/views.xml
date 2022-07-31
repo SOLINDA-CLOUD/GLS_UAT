@@ -43,7 +43,7 @@
       </field>
     </record>
 
-    <record id="account_payment_register_inherit_form" model="ir.ui.view">
+    <!-- <record id="account_payment_register_inherit_form" model="ir.ui.view">
       <field name="name">account.payment.register.form.inherit</field>
       <field name="model">account.payment.register</field>
       <field name="inherit_id" ref="account.view_account_payment_register_form"/>
@@ -55,7 +55,7 @@
           <field name="other_account"/>
         </field>
       </field>
-    </record>
+    </record> -->
 
   </data>
 </odoo>
