@@ -34,7 +34,7 @@ class PurchaseRequest(models.Model):
                 if not item.reason_qty_different:
                     data.append((item.product_id.display_name))
                     # raise ValidationError('')
-            if data:
+            if data and not self.create_directly:
                 raise ValidationError(
                         """Qty Product below is bigger than qty demand:
                         %s
