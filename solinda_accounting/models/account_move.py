@@ -46,11 +46,18 @@ class AccountMove(models.Model):
             this.total_delivered_qty = sum(
                 this.invoice_line_ids.mapped('qty_delivered_account')
             )
-            
+    
+    @api.depends('invoice_line_ids.qty_ordered_account')
+    def _compute_total_qty_sale(self):
+        for this in self:
+            this.total_qty_sale = sum(
+                this.invoice_line_ids.mapped('qty_ordered_account')
+            )
     
     total_qty_received = fields.Integer(compute='_compute_total_qty_received', string='Qty Received', store=True)
     total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
     total_qty_ordered = fields.Integer(compute='_compute_total_qty_ordered', string='Qty Ordered', store=True)
+    total_qty_sale = fields.Integer(compute='_compute_total_qty_sale', string='Qty Ordered', store=True)
     invoice_line_ids = fields.One2many('account.move.line', 'move_id', string='Invoice lines',
                                        copy=False, readonly=True,
                                        domain=[
@@ -77,9 +84,10 @@ class AccountMoveLine(models.Model):
         'product.product', string='Product', ondelete='restrict')
     detailed_type = fields.Selection(related='product_id.detailed_type', string='Product Type')
     qty_delivered_account = fields.Float(string='Qty Delivered', store=True)
+    qty_ordered_account = fields.Float(string='Qty Ordered', store=True)
     
     @api.depends('sale_order_line')
     def _compute_delivered(self):
         if self.sale_order_line:
-            self.qty_delivered_account = self.sale_order_line.qty_delivered  
-
+            self.qty_delivered_account = self.sale_order_line.qty_delivered
+            self.qty_ordered_account = self.sale_order_line.product_uom_qty
