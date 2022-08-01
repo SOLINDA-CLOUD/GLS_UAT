@@ -20,7 +20,7 @@
                 <field name="name" />
                 <field name="product_qty" />
                 <field name="product_uom_id" groups="uom.group_uom" />
-                <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
+                <field name="analytic_account_id" groups="analytic.group_analytic_accounting" required="1"/>
                 <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" />
                 <field name="supplier_id" />
                 <field name="company_id" groups="base.group_multi_company" widget="selection" />

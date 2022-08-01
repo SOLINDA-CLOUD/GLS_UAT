@@ -43,6 +43,9 @@
         <field name="attn_id" position="after">
           <field name="director_info" />
         </field>
+        <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
       </field>
     </record>
   </data>
