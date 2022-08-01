@@ -14,11 +14,10 @@
                     <button name="%(action_purchase_request_line_make_purchase_order)d" states="approved" string="Create RFQ" type="action" />
                     <button name="button_done" states="approved" string="Done" type="object" class="oe_highlight" groups="purchase_request.group_purchase_request_manager" />
                     <button name="button_rejected" states="to_approve,approved" string="Reject" type="object" groups="purchase_request.group_purchase_request_manager" />
-                    <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved,done,rejected" statusbar_colors='{"approved":"blue"}'
-                    />
-</header>
-<sheet>
-<div class="oe_button_box" name="button_box">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved,done,rejected" statusbar_colors='{"approved":"blue"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
                         <button type="object" name="action_view_purchase_request_line" class="oe_stat_button" attrs="{'invisible':[('line_count', '=', 0)]}" icon="fa-list">
                             <field name="line_count" widget="statinfo" string="Lines" />
                         </button>
