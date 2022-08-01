@@ -46,9 +46,10 @@ class AccountMove(models.Model):
             this.total_delivered_qty = sum(
                 this.invoice_line_ids.mapped('qty_delivered_account')
             )
+            
     
     total_qty_received = fields.Integer(compute='_compute_total_qty_received', string='Qty Received', store=True)
-
+    total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
     total_qty_ordered = fields.Integer(compute='_compute_total_qty_ordered', string='Qty Ordered', store=True)
     invoice_line_ids = fields.One2many('account.move.line', 'move_id', string='Invoice lines',
                                        copy=False, readonly=True,
@@ -63,10 +64,7 @@ class AccountMove(models.Model):
         ('product', 'Storable Product')], string='Product Type', default='consu', required=True,
         help='A storable product is a product for which you manage stock. The Inventory app has to be installed.\n'
              'A consumable product is a product for which stock is not managed.\n'
-             'A service is a non-material product you provide.')
-
-    total_delivered_qty = fields.Integer(compute='_compute_total_delivered_qty', string='Qty Delivered', store=True)
-  
+             'A service is a non-material product you provide.')  
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
@@ -78,9 +76,7 @@ class AccountMoveLine(models.Model):
     product_id = fields.Many2one(
         'product.product', string='Product', ondelete='restrict')
     detailed_type = fields.Selection(related='product_id.detailed_type', string='Product Type')
-
-    sale_order_line = fields.Many2one('sale.order.line', string='Order Lines', ondelete='set null', index=True)
-    qty_delivered_account = fields.Float(compute='_compute_delivered', string='Qty Delivered', store=True)
+    qty_delivered_account = fields.Float(string='Qty Delivered', store=True)
     
     @api.depends('sale_order_line')
     def _compute_delivered(self):
