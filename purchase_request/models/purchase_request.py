@@ -62,6 +62,7 @@ class PurchaseRequest(models.Model):
     is_name_editable = fields.Boolean(
         default=lambda self: self.env.user.has_group("base.group_no_one"),
     )
+    create_directly = fields.Boolean('Create Directly')
     origin = fields.Char(string="Source Document")
     date_start = fields.Date(
         string="Creation date",

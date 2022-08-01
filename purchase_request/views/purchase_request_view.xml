@@ -46,6 +46,7 @@
                             <field name="origin" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}" />
                             <field name="description" attrs="{'readonly': [('is_editable','=', False)]}" />
                             <field name="group_id" attrs="{'readonly': [('is_editable','=', False)]}" />
+                            <field name="create_directly" readonly="1" force_save="1"/>
                         </group>
                         <group>
                             <field name="date_start" attrs="{'readonly': [('is_editable','=', False)]}" />
@@ -114,6 +115,7 @@
                         <field name="currency_id" invisible="1" />
                         <field name="estimated_cost" optional="hide" />
                         <field name="state" widget="badge" decoration-success="state in ('done', 'approved')" decoration-muted="state == 'draft'" decoration-warning="state == 'to_approve'" decoration-danger="state == 'rejected'" />
+                        <field name="create_directly" optional="hide"/>
                     </tree>
                 </field>
             </record>
@@ -154,7 +156,7 @@
                 <field name="type">ir.actions.act_window</field>
                 <field name="res_model">purchase.request</field>
                 <field name="view_mode">tree,form</field>
-                <field name="context">{"search_default_requested_by":uid}</field>
+                <field name="context">{"search_default_requested_by":uid,"default_create_directly":True}</field>
                 <field name="search_view_id" ref="view_purchase_request_search" />
                 <field name="help" type="html">
                     <p class="oe_view_nocontent_create">
