@@ -57,17 +57,15 @@
                             <field name="saidi"/>
                             <field name="saifi"/>
                             <field colspan="4" name="remarks" />
-
                         </group>
-
                         <notebook>
                             <page name="input" string="Input Trouble">
                                 <field name="shutdown_system_line" nolabel="1" widget="one2many_list">
                                     <tree editable="bottom">
-                                        <field name="time"/>
+                                        <field name="time" required="1"/>
                                         <field name="end_time" optional="show"/>
-                                        <field name="trouble_id" />
-                                        <field name="type" optional="show"/>
+                                        <field name="trouble_id" required="1"/>
+                                        <field name="type" optional="show" required="1"/>
                                         <field name="is_trouble" optional="show"/>
                                         <field name="state" readonly="1" optional="hide"/>
                                         <field name="warehouse_id" invisible="1"/>
@@ -95,8 +93,6 @@
             <field name="res_model">water.prod.daily</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-
 
     </data>
 </odoo>

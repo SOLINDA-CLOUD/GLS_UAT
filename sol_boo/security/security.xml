@@ -8,17 +8,23 @@
         </record>
 
         <record id="group_operator_user" model="res.groups">
-            <field name="name">Operator</field>
+            <field name="name">BOO Operator</field>
             <field name="category_id" ref="sol_boo.categ_boo_oms" />
         </record>
 
-        <record id="group_operator_user" model="res.groups">
-            <field name="name">SPV. Operasional</field>
+        <record id="group_spv_operator_user" model="res.groups">
+            <field name="name">BOO SPV. Operasional</field>
             <field name="category_id" ref="sol_boo.categ_boo_oms" />
         </record>
 
-        <record id="group_operator_user" model="res.groups">
-            <field name="name">SPV. Maintenance</field>
+        <record id="group_spv_mantenance_user" model="res.groups">
+            <field name="name">BOO SPV. Maintenance</field>
+            <field name="category_id" ref="sol_boo.categ_boo_oms" />
+        </record>
+
+
+        <record id="group_oms_user" model="res.groups">
+            <field name="name">OMS USER</field>
             <field name="category_id" ref="sol_boo.categ_boo_oms" />
         </record>
     </data>

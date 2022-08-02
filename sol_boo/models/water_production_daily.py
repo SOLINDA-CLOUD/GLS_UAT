@@ -7,6 +7,7 @@ class ShutdownSystem(models.Model):
     _name = 'shutdown.system'
     _description = 'Shutdown System'
     _inherit = 'mail.thread'
+    _rec_name = 'trouble_id'
 
     trouble_id = fields.Many2one('trouble.master', string='Keterangan',tracking=True)
     time = fields.Datetime('Waktu', default=datetime.now(),tracking=True)
@@ -30,7 +31,7 @@ class ShutdownSystem(models.Model):
     approve_id = fields.Many2one('res.users', string='Approved By',tracking=True)
     job_order_id = fields.Many2one('job.order.request', string='Job Order',tracking=True)
     water_prod_id = fields.Many2one('water.prod.daily', string='Water Production',tracking=True)
-    warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id",tracking=True)
+    warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id",tracking=True,store=True)
     is_trouble = fields.Boolean('Trouble',related="trouble_id.is_trouble",tracking=True)
     trouble_minute = fields.Float(compute='_compute_trouble_minute', string='Trouble Minute',tracking=True)
     maintenance_id = fields.Many2one('maintenance.request', string='Maintenance')
