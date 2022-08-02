@@ -7,13 +7,13 @@ class CrmLead(models.Model):
     # _sql_constraints = [('project_code_must_uniq', 'unique(project_code)', 'Project Code Must Be Unique!')]
     
     rab_id = fields.Many2one('cost.sheet', string='RAB')
-    project_code = fields.Char('Project Code')
+    project_code = fields.Char('Project Code',tracking=True)
     
     @api.constrains('project_code')
     def _constrains_project_code(self):
         for this in self:
             data = self.env['crm.lead'].search([]).mapped('project_code')
-            dup = len([item for item, count in collections.Counter(data).items() if count > 1])
+            dup = len([item for item, count in collections.Counter(data).items() if count > 1 and item])
             if dup > 0:
                 raise ValidationError("Project Code Already Exist!")
 
