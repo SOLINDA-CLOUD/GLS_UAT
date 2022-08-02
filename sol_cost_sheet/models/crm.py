@@ -4,18 +4,18 @@ from odoo.exceptions import ValidationError
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
-    _sql_constraints = [('project_code_must_uniq', 'unique(project_code)', 'Project Code Must Be Unique!')]
+    # _sql_constraints = [('project_code_must_uniq', 'unique(project_code)', 'Project Code Must Be Unique!')]
     
     rab_id = fields.Many2one('cost.sheet', string='RAB')
     project_code = fields.Char('Project Code')
     
-    @api.constrains('project_code')
-    def _constrains_project_code(self):
-        for this in self:
-            data = self.env['crm.lead'].search([]).mapped('project_code')
-            dup = len([item for item, count in collections.Counter(data).items() if count > 1])
-            if dup > 0:
-                raise ValidationError("Project Code Already Exist!")
+    # @api.constrains('project_code')
+    # def _constrains_project_code(self):
+    #     for this in self:
+    #         data = self.env['crm.lead'].search([]).mapped('project_code')
+    #         dup = len([item for item, count in collections.Counter(data).items() if count > 1])
+    #         if dup > 0:
+    #             raise ValidationError("Project Code Already Exist!")
 
     def action_new_quotation(self):
         action = self.env["ir.actions.actions"]._for_xml_id("sale_crm.sale_action_quotations_new")
