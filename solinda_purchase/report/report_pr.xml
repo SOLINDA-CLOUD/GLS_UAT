@@ -116,10 +116,10 @@
                                             <span t-field="line.product_uom_id"/>
                                         </td>
                                         <td style="width: 12.7203%; text-align: center; border: 1px solid black;">
-                                            <span t-field="line.project_code_id"/>
+                                            <t t-esc="doc.project_code"/>
                                         </td>
                                         <td style="width: 14.3986%; text-align: center; border: 1px solid black;">
-                                            <t t-esc="line.budget_code_pr"/>
+                                            <span t-field="line.analytic_account_id"/>
                                         </td>
                                     </tr>
                                     <t t-set="no" t-value="no + 1"/>
