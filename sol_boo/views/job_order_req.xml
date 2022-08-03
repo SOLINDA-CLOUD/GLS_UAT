@@ -15,7 +15,7 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="create_open_maintenance" class="oe_stat_button" states="req,review,approve" icon="fa fa-coffee" type="object">
+                            <button name="create_open_maintenance" class="oe_stat_button" states="req,review,approve" icon="fa-clock-o" type="object">
                                 <field name="maintenance_id" widget="statinfo" string="Maintenance"/>
                             </button>
                         </div>

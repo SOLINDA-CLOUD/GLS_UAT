@@ -27,7 +27,7 @@
             <field name="arch" type="xml">
                 <tree string="Chemical Catridge" expand="1" editable="top">
                     <field name="warehouse_id"/>
-                    <field name="product_id"/>
+                    <field name="product_id" required="1"/>
                     <field name="date"/>
                     <field name="stock_awal" optional="show" />
                     <field name="penerimaan" optional="show"/>
