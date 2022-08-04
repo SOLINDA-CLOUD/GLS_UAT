@@ -191,7 +191,7 @@
                             
                             </tbody>
                         </table>
-                        <table style="border-collapse: collapse; width: 68.2656%; height: 75px;" border="1">
+                        <table style="border-collapse: collapse; width: 73.4853%; height: 75px;" border="1">
                             <tbody style="font-size: 12px;">
                                 <tr style="height: 18px; border: 1px solid black;">
                                     <td style="width: 3.21543%; height: 36px;">Say</td>
@@ -201,9 +201,9 @@
                                     </td>
                                 </tr>
                                 <tr style="height: 18px; border: 1px solid black;">
-                                    <td style="width: 3.21543%; height: 39px;">Note</td>
-                                    <td style="width: 3.21543%; height: 39px; text-align: center;">:</td>
-                                    <td style="width: 17.353%; height: 39px; text-align: right;">
+                                    <td style="width: 11.9792%; height: 54px;">Note</td>
+                                    <td style="width: 3.45647%; height: 54px; text-align: center;">:</td>
+                                    <td style="width: 31.0254%; height: 54px; border: 1px solid black;">
                                         <t t-esc="doc.notes"/>
                                     </td>
                                 </tr>
