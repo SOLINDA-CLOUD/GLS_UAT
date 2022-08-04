@@ -34,7 +34,7 @@
                             <button name="create_open_job_order" class="oe_stat_button" type="object" icon="fa-tasks" attrs="{'invisible': [('type', '!=', 'trouble')]}" groups="base.group_system,sol_boo.group_spv_operator_user">
                                 <field name="job_order_id" widget="statinfo" readonly="1" string="Job Order"/>
                             </button>
-                            <button name="create_open_maintenance" class="oe_stat_button" type="object" icon="fa-clock-o" attrs="{'invisible': [('type', '=','trouble')]}">
+                            <button name="create_open_maintenance" style="width: 16%;" class="oe_stat_button" type="object" icon="fa-clock-o" attrs="{'invisible': [('type', '=','trouble')]}">
                                 <field name="state_maintenance" widget="statinfo" readonly="1" string="Progres"/>
                                 <field name="maintenance_id" widget="statinfo" readonly="1" invisible="1"/>
                             </button>
