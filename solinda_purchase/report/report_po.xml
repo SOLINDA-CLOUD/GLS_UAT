@@ -149,7 +149,15 @@
                         <table style="border-collapse: collapse; width: 100%; height: 108px;" border="1">
                             <tbody style="font-size: 12px;">
                                 
-                                <tr style="height: 18px; border: 1px solid black;">
+                                <div id="total" class="row justify-content-end">
+                                    <div class="col-4">
+                                        <table class="table table-sm">
+                                            <t t-set="tax_totals" t-value="json.loads(doc.tax_totals_json)"/>
+                                            <t t-call="account.document_tax_totals"/>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <tr style="height: 18px; border: 1px solid black;">
                                     <td style="width: 11.9792%; height: 54px;" rowspan="2">Say</td>
                                     <td style="width: 3.45647%; height: 54px; text-align: center;" rowspan="2">:</td>
                                     <td style="width: 34.5644%; height: 54px; border: 1px solid black;" rowspan="2">
@@ -179,10 +187,12 @@
                                     <td style="width: 24.1951%; height: 18px; text-align: right;">
                                         <strong><t t-esc="doc.amount_total" t-options="{'widget': 'monetary','display_currency': res_company.currency_id}"/></strong>
                                     </td>
-                                </tr>
+                                </tr> -->
                             
                             </tbody>
                         </table>
+                        <p>Say : <t t-esc="doc.currency_id.with_context(lang=doc.partner_id.lang or 'id_ID').amount_to_text(doc.amount_total)"/></p>
+                        <p>Note : <t t-esc="doc.notes"/></p>
                         <br />
                         <br />
                     </div>
