@@ -191,19 +191,19 @@
                             
                             </tbody>
                         </table>
-                        <table style="border-collapse: collapse; width: 73.4853%; height: 75px;" border="1">
-                            <tbody style="font-size: 12px;">
-                                <tr style="height: 18px; border: 1px solid black;">
-                                    <td style="width: 3.21543%; height: 36px;">Say</td>
-                                    <td style="width: 3.21543%; height: 36px; text-align: center;">:</td>
-                                    <td style="width: 17.353%; height: 36px; border: 1px solid black;">
+                        <table style="border-collapse: collapse; width: 61.3765%; height: 36px;" border="1">
+                            <tbody>
+                                <tr style="height: 18px;">
+                                    <td style="width: 10.7863%; height: 18px; border-bottom: 1px solid transparent; border-right: 1px solid transparent;">Say</td>
+                                    <td style="width: 3.40136%; height: 18px; border-bottom: 1px solid transparent; border-right: 1px solid transparent;">:</td>
+                                    <td style="width: 47.1901%; height: 18px; border-bottom: 1px solid transparent;">
                                         <t t-esc="doc.currency_id.with_context(lang=doc.partner_id.lang or 'id_ID').amount_to_text(doc.amount_total)"/>
                                     </td>
                                 </tr>
-                                <tr style="height: 18px; border: 1px solid black;">
-                                    <td style="width: 11.9792%; height: 54px;">Note</td>
-                                    <td style="width: 3.45647%; height: 54px; text-align: center;">:</td>
-                                    <td style="width: 31.0254%; height: 54px; border: 1px solid black;">
+                                <tr style="height: 18px;">
+                                    <td style="width: 10.7863%; height: 18px; border-right: 1px solid transparent;">Note</td>
+                                    <td style="width: 3.40136%; height: 18px; border-right: 1px solid transparent;">:</td>
+                                    <td style="width: 47.1901%; height: 18px;">
                                         <t t-esc="doc.notes"/>
                                     </td>
                                 </tr>
