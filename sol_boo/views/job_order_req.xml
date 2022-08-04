@@ -15,7 +15,7 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="create_open_maintenance" class="oe_stat_button" states="req,review,approve" icon="fa-wrench" type="object">
+                            <button name="create_open_maintenance" class="oe_stat_button" states="req,review,approve" groups="base.group_system,sol_boo.group_spv_mantenance_user" icon="fa-wrench" type="object">
                                 <field name="maintenance_id" widget="statinfo" string="Maintain"/>
                             </button>
                         </div>

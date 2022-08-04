@@ -3,6 +3,15 @@ from datetime import datetime,date
 from dateutil import relativedelta
 from odoo.exceptions import ValidationError
 
+class CleaningConsumption(models.Model):
+    _name = 'cleaning.consumption'
+    _description = 'Cleaning Consumption'
+    
+    product_id = fields.Many2one('product.product', string='Material')
+    consumption = fields.Float('Consumption')
+    remarks = fields.Text('Remarks')
+    shutdown_id = fields.Many2one('shutdown.system', string='Shutdown System')
+
 class ShutdownSystem(models.Model):
     _name = 'shutdown.system'
     _description = 'Shutdown System'
@@ -16,9 +25,9 @@ class ShutdownSystem(models.Model):
     jadwal_pelaksana = fields.Date('Jadwal Pelaksanaan',tracking=True)
     type = fields.Selection([
         ('trouble', 'Input Trouble'),
-        ('cleaning', 'Request Cleaning'),
+        ('cleaning', 'Cleaning'),
         ('backwash', 'Backwash'),
-        ('grease', 'Request Grease')
+        ('grease', 'Grease')
     ], string='type',related="trouble_id.type",tracking=True,store=True)
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -32,9 +41,30 @@ class ShutdownSystem(models.Model):
     job_order_id = fields.Many2one('job.order.request', string='Job Order',tracking=True)
     water_prod_id = fields.Many2one('water.prod.daily', string='Water Production',tracking=True)
     warehouse_id = fields.Many2one('stock.location', string='Lokasi',related="water_prod_id.warehouse_id",tracking=True,store=True)
-    is_trouble = fields.Boolean('Trouble',related="trouble_id.is_trouble",tracking=True)
+    is_trouble = fields.Boolean('Trouble',related="trouble_id.is_trouble",tracking=True,store=True)
     trouble_minute = fields.Float(compute='_compute_trouble_minute', string='Trouble Minute',tracking=True)
     maintenance_id = fields.Many2one('maintenance.request', string='Maintenance')
+    state_maintenance = fields.Char('State Maintenance',related="maintenance_id.stage_id.name")
+    frek_cleaning = fields.Float('Frekuensi Cleaning')
+    cleaning_consumption_ids = fields.One2many('cleaning.consumption', 'shutdown_id', string='Cleaning Consumption')
+    grease_usage = fields.Float('Grease Usage',tracking=True)
+    mr_ids = fields.One2many('stock.picking', 'shutdown_id', string='MR')
+    mr_count = fields.Integer(compute='_compute_mr_count', string='Mr')
+    
+    @api.depends('mr_ids')
+    def _compute_mr_count(self):
+        for i in self:
+            i.mr_count = len(i.mr_ids)
+
+    def create_open_mr(self):
+         return {
+                'name': 'Material Request',
+                'type': 'ir.actions.act_window',
+                'view_mode': 'tree,kanban,form,calendar,map',
+                'res_model': 'stock.picking',
+                'context': {'default_company_id': self.env.company.id,'default_shutdown_id':self.id},
+                'domain': [('shutdown_id','=',self.id)],
+            }
 
     def create_open_maintenance(self):
         for i in self:
@@ -50,8 +80,9 @@ class ShutdownSystem(models.Model):
                     }
             else:
                 maintenance = self.env["maintenance.request"].create({
-                            'name': 'Maintenance ...',
-                            'description': i.problem,
+                            'name': i.type + '...',
+                            'description': i.trouble_id.name,
+                            'shutdown_id':i.id,
                             })
                 if maintenance:
                     i.maintenance_id = maintenance.id

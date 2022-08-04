@@ -8,8 +8,9 @@
             <field name="arch" type="xml">
                 <tree string="Shutdown System">
                     <field name="trouble_id" />
-                    <field name="type"/>
                     <field name="warehouse_id" />
+                    <field name="type"/>
+                    <field name="is_trouble" optional="hide"/>
                     <field name="time"/>
                     <field name="state" />
                 </tree>
@@ -27,27 +28,47 @@
                         <!-- <button name="approve_button" type="object" string="Request" states="draft" class="oe_highlight"/> -->
                         <field name="state" widget="statusbar" statusbar_visible="draft,done" attrs="{'invisible': [('type', '!=', 'backwash')]}"/>
                     </header>
+
                     <sheet>
-                        <div class="oe_button_box" name="button_box" attrs="{'invisible': [('type', '!=', 'trouble')]}">
-                            <button name="create_open_job_order" class="oe_stat_button" type="object" icon="fa-tasks" groups="base.group_system,sol_boo.group_spv_operator_user">
+                        <div class="oe_button_box" name="button_box">
+                            <button name="create_open_job_order" class="oe_stat_button" type="object" icon="fa-tasks" attrs="{'invisible': [('type', '!=', 'trouble')]}" groups="base.group_system,sol_boo.group_spv_operator_user">
                                 <field name="job_order_id" widget="statinfo" readonly="1" string="Job Order"/>
                             </button>
-                            <button name="create_open_maintenance" class="oe_stat_button" type="object" icon="fa-clock-o" attrs="{'invisible': [('type', '!=','trouble')]}">
-                                <field name="maintenance_id" widget="statinfo" readonly="1" string="Progres"/>
+                            <button name="create_open_maintenance" class="oe_stat_button" type="object" icon="fa-clock-o" attrs="{'invisible': [('type', '=','trouble')]}">
+                                <field name="state_maintenance" widget="statinfo" readonly="1" string="Progres"/>
+                                <field name="maintenance_id" widget="statinfo" readonly="1" invisible="1"/>
+                            </button>
+                            <button name="create_open_mr" class="oe_stat_button" type="object" icon="fa-dropbox" attrs="{'invisible': [('type', 'in',['backwash','trouble'])]}" groups="base.group_system,sol_boo.group_spv_operator_user">
+                                <field name="mr_count" widget="statinfo" readonly="1" string="MR"/>
                             </button>
                         </div>
-
-                        <group name="invisible_field">
-                            <field name="filename" invisible="1"/>
-                            <field name="type" invisible="1" required="1"/>
-                        </group>
 
                         <group col="4" name="cleaning_backwash_flow">
                             <field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="trouble_id" colspan="4"/>
-                            <field name="attachment" string="Upload laporan" widget="binary" filename="filename" />
+                            <field name="grease_usage" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', '!=', 'grease')]}"/>
+                        </group>
+
+                        <group name="attachment_">
+                            <field name="attachment" string="Upload Foto" widget="binary" filename="filename" attrs="{'invisible': [('type', '!=','backwash')]}"/>
                             <field name="attachment" string="Upload laporan" widget="binary" filename="filename" groups="base.group_system,sol_boo.group_spv_operator_user" attrs="{'invisible': [('type', 'not in', ['cleaning'])]}"/>
+                            <field name="filename" invisible="1"/>
+                            <field name="type" invisible="1" required="1"/>
+                        </group>
+
+                        <group name="cleaning_consumption" col="4" string="Cleaning Report" attrs="{'invisible': [('type', '!=', 'cleaning')]}" groups="base.group_system,sol_boo.group_spv_operator_user">
+                            <field name="frek_cleaning" />
+                            <field name="cleaning_consumption_ids" nolabel="1" widget="one2many_list" colspan="4">
+                                <tree editable="bottom">
+                                    <field name="product_id" required="1"/>
+                                    <field name="consumption" required="1"/>
+                                    <field name="remarks" optional="show"/>
+                                    <field name="shutdown_id" invisible="1"/>
+                                    <!-- <button string="Open" name="create_open_job_order" type="object" class="oe_highlight"/> -->
+                                    <!-- <button string="Create/Open Job Order Request" name="create_open_job_order" type="object" class="oe_highlight"/> -->
+                                </tree>
+                            </field>
                         </group>
 
                     </sheet>

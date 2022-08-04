@@ -6,3 +6,4 @@ from . import water_production_daily
 from . import reporting
 from . import trouble_master
 from . import maintenance_request
+from . import stock_picking

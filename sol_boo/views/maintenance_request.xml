@@ -9,6 +9,15 @@
             <field name="model">maintenance.request</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
+
+                <xpath expr="//sheet/div" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="create_open_mr" class="oe_stat_button" type="object" icon="fa-dropbox" groups="base.group_system,sol_boo.group_spv_mantenance_user">
+                            <field name="mr_count" widget="statinfo" readonly="1" string="MR"/>
+                        </button>
+                    </div>
+                </xpath>
+
                 <xpath expr="//sheet" position="inside">
                     <notebook>
                         <page name="action_plan" string="Action Plan">
@@ -22,8 +31,8 @@
                             </field>
                         </page>
                     </notebook>
-
                 </xpath>
+
             </field>
         </record>
 

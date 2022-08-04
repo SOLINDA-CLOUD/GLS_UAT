@@ -38,6 +38,7 @@ class JobOrderRequest(models.Model):
     accepted_datetime = fields.Datetime('Datetime Job Complated')
     note = fields.Text('Note',tracking=True)
     maintenance_id = fields.Many2one('maintenance.request', string='Maintenance')
+    
 
     def create_open_maintenance(self):
         for i in self:
@@ -55,6 +56,7 @@ class JobOrderRequest(models.Model):
                 maintenance = self.env["maintenance.request"].create({
                             'name': 'Request Maintenance ...',
                             'description': i.problem,
+                            'job_order_id':i.id
                             })
                 if maintenance:
                     i.maintenance_id = maintenance.id
