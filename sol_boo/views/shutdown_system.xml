@@ -12,6 +12,8 @@
                     <field name="type"/>
                     <field name="is_trouble" optional="hide"/>
                     <field name="time"/>
+                    <field name="frek_cleaning" optional="hide"/>
+                    <field name="grease_usage" optional="hide"/>
                     <field name="state" />
                 </tree>
             </field>
@@ -25,6 +27,7 @@
                 <form string="Shutdown System">
                     <header>
                         <button name="confirm_backwash" type="object" string="Confirm Backwash" states="draft" attrs="{'invisible': ['|',('type', '!=', 'backwash')]}" class="oe_highlight"/>
+                        <button name="state_done" type="object" string="Approved" states="draft" attrs="{'invisible': ['|',('type', '!=', 'grease')]}" class="oe_highlight"/>
                         <!-- <button name="approve_button" type="object" string="Request" states="draft" class="oe_highlight"/> -->
                         <field name="state" widget="statusbar" statusbar_visible="draft,done" attrs="{'invisible': [('type', '!=', 'backwash')]}"/>
                     </header>
@@ -46,19 +49,19 @@
                         <group col="4" name="cleaning_backwash_flow">
                             <field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="trouble_id" colspan="4"/>
+                            <field name="trouble_id" colspan="4" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="grease_usage" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', '!=', 'grease')]}"/>
                         </group>
 
                         <group name="attachment_">
-                            <field name="attachment" string="Upload Foto" widget="binary" filename="filename" attrs="{'invisible': [('type', '!=','backwash')]}"/>
-                            <field name="attachment" string="Upload laporan" widget="binary" filename="filename" groups="base.group_system,sol_boo.group_spv_operator_user" attrs="{'invisible': [('type', 'not in', ['cleaning'])]}"/>
+                            <field name="attachment" string="Upload Foto" widget="binary" filename="filename" attrs="{'invisible': [('type', '!=','backwash')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="attachment" string="Upload laporan" widget="binary" filename="filename" groups="base.group_system,sol_boo.group_spv_operator_user" attrs="{'invisible': [('type', 'not in', ['cleaning'])],'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="filename" invisible="1"/>
                             <field name="type" invisible="1" required="1"/>
                         </group>
 
                         <group name="cleaning_consumption" col="4" string="Cleaning Report" attrs="{'invisible': [('type', '!=', 'cleaning')]}" groups="base.group_system,sol_boo.group_spv_operator_user">
-                            <field name="frek_cleaning" />
+                            <field name="frek_cleaning" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="cleaning_consumption_ids" nolabel="1" widget="one2many_list" colspan="4">
                                 <tree editable="bottom">
                                     <field name="product_id" required="1"/>
