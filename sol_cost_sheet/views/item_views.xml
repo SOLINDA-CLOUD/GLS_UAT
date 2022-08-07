@@ -68,11 +68,11 @@
           <field name="price_po" />
           <!-- <field name="rap_price" /> -->
           <button name="view_item_in_purchase" type="object" icon="fa-pencil-square-o" />
-          <!-- <field name="data_type" optional="hide" decoration-success="data_type == 'normal'" decoration-warning="data_type == 'edit'" decoration-danger="data_type == 'add'"/>
-          <field name="edited_field" optional="hide" />
-          <button name="status" type="object" icon="fa-arrow-circle-up" attrs="{'invisible': [('price_po','&gt;=',total_price)]}"/>
-          <button name="status" type="object" icon="fa-arrow-circle-down" attrs="{'invisible': [('price_po','&lt;=',total_price)]}"/>
-          <button name="status" type="object" icon="fa-bars" attrs="{'invisible': [('price_po','!=',total_price)]}"/> -->
+          <field name="data_type" optional="hide" decoration-success="data_type == 'normal'" decoration-warning="data_type == 'edit'" decoration-danger="data_type == 'add'"/>
+          <!-- <field name="edited_field" optional="hide" /> -->
+          <!-- <button name="status" type="object" icon="fa-arrow-circle-up" attrs="{'invisible': [('price_po','&gt;=',total_price)]}"/> -->
+          <!-- <button name="status" type="object" icon="fa-arrow-circle-down" attrs="{'invisible': [('price_po','&lt;=',total_price)]}"/> -->
+          <!-- <button name="status" type="object" icon="fa-bars" attrs="{'invisible': [('price_po','!=',total_price)]}"/> -->
         </tree>
       </field>
     </record>
