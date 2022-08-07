@@ -42,9 +42,31 @@ class Item(models.Model):
     # price_po = fields.Float(compute='_compute_qty_po', string='PO Price')
     price_po = fields.Float(compute='_compute_price_po', string='PO Price')
     project_code = fields.Char('Project Code', related="rap_id.project_id.code")
+    data_type = fields.Selection([
+        ('normal', 'Normal'),
+        ('edit', 'Edited'),
+        ('add', 'Additional'),
+    ], string='Data Type',default="normal")
+    """Alur ke atas => component.component(component_id) =>  rap.category(rap_category_id) => rap.rap(rap_id)"""
+    edited_field = fields.Text('Edited Field')
+
+    def write(self,vals):
+        res = super(Item, self).write(vals)
+        if self.data_type != 'add' and self.component_id.rap_category_id.rap_id.revision_on:
+            self.data_type = 'edit'
+        return res
     
-    
-    
+    def status(self):
+        return
+
+    @api.model
+    def create(self, vals):
+        res = super(Item, self).create(vals)
+        rap = res.component_id.rap_category_id.rap_id.revision_on
+        if rap:
+            res.data_type = 'add'
+        return res 
+
     # @api.depends('purchase_request_line_ids')
     def _compute_qty_pr(self):
         for this in self:

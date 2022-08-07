@@ -53,6 +53,7 @@
                             <field name="approval_id" invisible="1" />
                             <field name="approver_id" invisible="1" />
                             <field name="is_approver" invisible="1" />
+                            <field name="revision_on" invisible="1" />
 
                         </group>
                         <notebook>

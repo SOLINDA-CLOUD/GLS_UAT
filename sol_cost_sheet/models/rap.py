@@ -37,7 +37,10 @@ class CsRAP(models.Model):
     reason = fields.Text('Note')
     project_code = fields.Char('Project Code', related="project_id.code")
     project_manager = fields.Many2one('res.users', string='Project Manager', related='project_id.user_id', required=True)
+    revision_on = fields.Boolean(string='Revision',default=False)
     
+
+
     @api.model
     def create(self, vals):
         res = super(CsRAP, self).create(vals)
@@ -59,7 +62,7 @@ class CsRAP(models.Model):
     def action_cancel(self):
         self.write({'state':'cancel'})
     def action_revision(self):
-        self.write({'state':'revisied','approval_id':False,'approver_id':False})
+        self.write({'state':'revisied','approval_id':False,'approver_id':False,'revision_on':True})
         
 
     
