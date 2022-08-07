@@ -68,8 +68,8 @@
           <field name="price_po" />
           <!-- <field name="rap_price" /> -->
           <button name="view_item_in_purchase" type="object" icon="fa-pencil-square-o" />
-          <field name="data_type" optional="hide" decoration-success="data_type == 'normal'" decoration-warning="data_type == 'edit'" decoration-danger="data_type == 'add'"/>
-          <field name="edited_field" optional="hide" />
+          <field name="data_type" eadonly="1" force_save="1" optional="hide" decoration-success="data_type == 'normal'" decoration-warning="data_type == 'edit'" decoration-danger="data_type == 'add'"/>
+          <field name="edited_field" optional="hide" readonly="1" force_save="1" />
           <field name="status_button" invisible="1"/>
           <button name="status" type="object" icon="fa-arrow-circle-up" attrs="{'invisible': [('status_button','!=','up')]}"/>
           <button name="status" type="object" icon="fa-arrow-circle-down" attrs="{'invisible': [('status_button','!=','down')]}"/>
