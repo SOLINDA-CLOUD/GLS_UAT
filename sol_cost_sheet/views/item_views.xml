@@ -72,7 +72,7 @@
           <field name="edited_field" optional="hide" />
           <button name="status" type="object" icon="fa-arrow-circle-up" attrs="{'invisible': [('price_po','&gt;=',total_price)]}"/>
           <button name="status" type="object" icon="fa-arrow-circle-down" attrs="{'invisible': [('price_po','&lt;=',total_price)]}"/>
-          <button name="status" type="object" icon="fa-bars" attrs="{'invisible': [('price_po','=',total_price)]}"/>
+          <button name="status" type="object" icon="fa-bars" attrs="{'invisible': [('price_po','!=',total_price)]}"/>
         </tree>
       </field>
     </record>
