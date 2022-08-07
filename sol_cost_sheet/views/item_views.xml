@@ -64,7 +64,7 @@
           <button name="view_item_in_po_line" type="object" icon="fa-pencil-square-o" />
           <!-- <field name="existing_price" /> -->
           <!-- <field name="rfq_price" /> -->
-          <field name="total_price" string="RAB Price" />
+          <field name="total_price" string="RAP Price" />
           <field name="price_po" />
           <!-- <field name="rap_price" /> -->
           <button name="view_item_in_purchase" type="object" icon="fa-pencil-square-o" />
