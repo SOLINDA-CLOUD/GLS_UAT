@@ -22,7 +22,8 @@ class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     rab_id = fields.Many2one('cost.sheet',related='sale_order_id.rab_id', string='RAB',store=True)
-    code = fields.Char('Project Code',related="sale_order_id.rab_id.project_code")
+    code = fields.Char('Project Code')
+    # code = fields.Char('Project Code',related="sale_order_id.rab_id.project_code")
     rap_id = fields.Many2one('rap.rap', string='RAP')
     project_cost_account_id = fields.Many2one('account.account', string='Project Cost')
     project_onprogress_account_id = fields.Many2one('account.account', string='Project On Progress')
