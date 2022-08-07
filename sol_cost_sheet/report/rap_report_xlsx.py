@@ -109,7 +109,8 @@ class CostSheetXlsx(models.AbstractModel):
                         worksheet.write(row + 1, 14, 0, style_basic_center)
                         worksheet.write(row + 1, 15, purchase.price_subtotal, money_format)
                         worksheet.write(row + 1, 16, purchase.order_id.partner_id.name, style_basic_center)
-                        worksheet.write(row + 1, 17, rec.project_id.code or "-", style_basic_center)
+                        worksheet.write(row + 1, 17, purchase.account_analytic_id.name, style_basic_center)
+                        # worksheet.write(row + 1, 17, rec.project_id.code or "-", style_basic_center)
                         row += 1
 
                     row += 1
