@@ -62,6 +62,22 @@ class Item(models.Model):
             this.qty_po = sum(this.purchase_order_line_ids.mapped('product_qty'))
             # this.price_po = sum(this.purchase_order_line_ids.mapped('price_subtotal'))
     
+    @api.onchange('product_id')
+    def _onchange_product_rfqprice(self):
+        for i in self:
+            if i.product_id.detailed_type != 'service':
+                stock_valuation = i.product_id.stock_valuation_layer_ids.sorted(reverse=True)
+            else:
+                stock_valuation = i.env['purchase.order.line'].search([('product_id', '=', i.product_id.id),('po_confirm_date', '<=', fields.Date.context_today(i))],order="po_confirm_date desc",limit=1)
+            if stock_valuation:
+                cost = stock_valuation[0].unit_cost if stock_valuation else 0.0
+            else:
+                cost = 0
+            if not i.rfq_price:
+                i.rfq_price = cost
+            else:
+                i.rfq_price = 0
+
     @api.depends('product_id')
     def _compute_existing_price(self):
         for this in self:
@@ -75,10 +91,10 @@ class Item(models.Model):
             else:
                 cost = 0
                 this.existing_price = cost
-            if not this.rfq_price:
-                this.rfq_price = cost
-            else:
-                this.rfq_price = 0
+            # if not this.rfq_price:
+            #     this.rfq_price = cost
+            # else:
+            #     this.rfq_price = 0
                 
 
     @api.onchange('product_id')
