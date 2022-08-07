@@ -49,6 +49,19 @@ class Item(models.Model):
     ], string='Data Type',default="normal")
     """Alur ke atas => component.component(component_id) =>  rap.category(rap_category_id) => rap.rap(rap_id)"""
     edited_field = fields.Text('Edited Field')
+    status_button = fields.Char(compute='_compute_status_button', string='Status Button')
+    
+    @api.depends('total_price','price_po')
+    def _compute_status_button(self):
+        for i in self:
+            if i.price_po < i.total_price:
+                i.status_button = 'up'
+            elif i.price_po > i.total_price:
+                i.status_button = 'down'
+            else:
+                i.status_button = 'equal'
+
+             
 
     def write(self,vals):
         res = super(Item, self).write(vals)
