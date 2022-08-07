@@ -148,8 +148,13 @@ class RapCategory(models.Model):
     rab_price = fields.Float('RAB Price')
     price_unit = fields.Float('Price',compute="_compute_price_unit")
     rap_state = fields.Selection(related='rap_id.state',store=True)
-
+    rap_price = fields.Char(compute='_compute_rap_price', string='RAP Price')
     
+    @api.depends('parent_component_line_ids.item_ids.price_po')
+    def _compute_rap_price(self):
+        for i in self:
+            i.rap_price = sum(i.parent_component_line_ids.mapped('item_ids.total_price'))
+
     @api.depends('parent_component_line_ids.item_ids.price_po')
     def _compute_price_unit(self):
         for this in self:

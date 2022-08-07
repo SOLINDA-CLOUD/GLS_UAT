@@ -61,6 +61,7 @@
                                     <tree editable="bottom">
                                         <field name="product_id" />
                                         <field name="rab_price" />
+                                        <field name="rap_price"/>
                                         <field name="price_unit" />
                                         <button name="action_view_detail_rap" type="object" icon="fa-pencil-square-o" />
                                     </tree>
