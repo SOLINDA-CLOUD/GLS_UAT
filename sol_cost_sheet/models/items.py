@@ -52,7 +52,7 @@ class Item(models.Model):
 
     def write(self,vals):
         res = super(Item, self).write(vals)
-        if self.data_type != 'add' and self.component_id.rap_category_id.rap_id.revision_on:
+        if self.data_type != 'add' and self.rap_id.revision_on:
             self.data_type = 'edit'
         return res
     
