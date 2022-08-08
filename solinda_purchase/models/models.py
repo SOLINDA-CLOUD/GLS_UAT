@@ -50,9 +50,9 @@ class PurchaseRequisitionLine(models.Model):
             if self.product_id.voltage:
                 product_description_variants += "\n" + "voltage : " + self.product_id.voltage + ";"
             if self.product_id.casing:
-                product_description_variants += "\n" + "material casing : " + self.product_id.impeller + ";"
+                product_description_variants += "\n" + "material casing : " + self.product_id.casing + ";"
             if self.product_id.impeller:
-                product_description_variants += "\n" + "material impeller : " + self.product_id.casing + ";"
+                product_description_variants += "\n" + "material impeller : " + self.product_id.impeller + ";"
             self.product_uom_id = self.product_id.uom_id.id
             self.product_description_variants = product_description_variants
 
