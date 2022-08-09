@@ -59,16 +59,15 @@ class PurchaseRequisitionLine(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
     type_pur = fields.Char(string='Type')
     debit = fields.Char(string='Debit')
     head = fields.Char(string='Head')
     voltage = fields.Char(string='Voltage')
     casing = fields.Char(string='Casing')
     impeller = fields.Char(string='Impeller')
-
-class ProductTemplate(models.Model):
-    _inherit = 'product.template'
-
 
 class PurchaseOrderLine(models.Model):
     _inherit ='purchase.order.line'
