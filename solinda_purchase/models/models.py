@@ -66,39 +66,9 @@ class ProductProduct(models.Model):
     casing = fields.Char(string='Casing')
     impeller = fields.Char(string='Impeller')
 
-    def get_import_template(self):
-        res = super(ProductProduct, self).get_import_template()
-        res.update({
-            'type_pur': self.type_pur,
-            'debit': self.debit,
-            'head': self.head,
-            'voltage': self.voltage,
-            'casing': self.casing,
-            'impeller': self.impeller
-            })
-        return res
-
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    type_pur = fields.Char(string='Type')
-    debit = fields.Char(string='Debit')
-    head = fields.Char(string='Head')
-    voltage = fields.Char(string='Voltage')
-    casing = fields.Char(string='Casing')
-    impeller = fields.Char(string='Impeller')
-
-    def get_import_product(self):
-        res = super(ProductTemplate, self).get_import_product()
-        res.update({
-            'type_pur': self.type_pur,
-            'debit': self.debit,
-            'head': self.head,
-            'voltage': self.voltage,
-            'casing': self.casing,
-            'impeller': self.impeller
-            })
-        return res
 
 class PurchaseOrderLine(models.Model):
     _inherit ='purchase.order.line'
